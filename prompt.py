@@ -6,7 +6,7 @@ boxes, header bar, input field. Swap respond() with your LLM backend.
 
 Requirements:  pip install psychopy
 """
-
+from dotenv import load_dotenv
 from psychopy import visual, core, event, gui
 import math
 import csv
@@ -176,8 +176,10 @@ class ConversationalAgent:
 
     def respond_llm(self, user_input=""):
         """Live LLM response via Groq. Call this instead of respond()."""
+        load_dotenv()
+        api_key = os.getenv("GROQ_API_KEY")
         from groq import Groq
-        client = Groq(api_key="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")
+        client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
         if not hasattr(self, 'chat_history'):
             self.chat_history = []
