@@ -1,0 +1,10 @@
+turn,role,message,participant_id,agent,avatar_gender,timestamp
+1,agent,Hey! Good to meet you. How's everything going for you today?,355,Warm & Supportive,male,20260606_155524
+2,user,hello,355,Warm & Supportive,male,20260606_155524
+3,agent,It's good to talk. What's on your mind today?,355,Warm & Supportive,male,20260606_155524
+4,user,nothing much,355,Warm & Supportive,male,20260606_155524
+5,agent,"Just enjoying some quiet time, I'm here if you need to chat about anything, no pressure.",355,Warm & Supportive,male,20260606_155524
+6,user,okk,355,Warm & Supportive,male,20260606_155524
+7,agent,"Sometimes it's nice just to be present in the moment, without a whole lot going on.",355,Warm & Supportive,male,20260606_155524
+8,user,yes,355,Warm & Supportive,male,20260606_155524
+9,agent,"You can always come back here if you do need to talk about something. Just knowing that's here can be helpful, I think.",355,Warm & Supportive,male,20260606_155524

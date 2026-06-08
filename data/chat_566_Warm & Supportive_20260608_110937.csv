@@ -1,0 +1,4 @@
+turn,role,message,participant_id,agent,avatar_gender,timestamp
+1,agent,Hey! Good to meet you. How's everything going for you today?,566,Warm & Supportive,male,20260608_110937
+2,user,hello,566,Warm & Supportive,male,20260608_110937
+3,agent,"It's great to talk to you. How are you doing today? Anything on your mind that you'd like to chat about or anything specific you'd like help with? I'm all ears and here to listen, and help if I can.",566,Warm & Supportive,male,20260608_110937

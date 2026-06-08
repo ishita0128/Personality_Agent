@@ -1,0 +1,12 @@
+turn,role,message,participant_id,agent,timestamp
+1,agent,Hey there! So great to meet you! How can I help today?,P011,Friendly,20260526_161957
+2,user,hii,P011,Friendly,20260526_161957
+3,agent,Hi! How's your day going so far?,P011,Friendly,20260526_161957
+4,user,its been good,P011,Friendly,20260526_161957
+5,agent,That's great to hear! What's been the highlight of your day?,P011,Friendly,20260526_161957
+6,user,some great practical learning,P011,Friendly,20260526_161957
+7,agent,"That's awesome. New skills can be so empowering, don't they?",P011,Friendly,20260526_161957
+8,user,yes it is,P011,Friendly,20260526_161957
+9,agent,You must be really proud of yourself for taking the initiative.,P011,Friendly,20260526_161957
+10,user,yes it is,P011,Friendly,20260526_161957
+11,agent,You've got a great mindset. Keep up the good work!,P011,Friendly,20260526_161957

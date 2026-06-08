@@ -1,0 +1,34 @@
+turn,role,message,participant_id,agent,timestamp
+1,agent,Hello. I'm ready to assist you. What do you need today?,77,Confident & Efficient,20260601_125318
+2,user,hello,77,Confident & Efficient,20260601_125318
+3,agent,"Hello, how can I assist you today?",77,Confident & Efficient,20260601_125318
+4,user,i dont need any help just feeling sleepy,77,Confident & Efficient,20260601_125318
+5,agent,"You might want to try taking a short break, grabbing a cup of coffee, or getting some fresh air to perk yourself up.",77,Confident & Efficient,20260601_125318
+6,user,yeah  i have work to do,77,Confident & Efficient,20260601_125318
+7,agent,"Get a glass of water, take a few minutes to stretch, and dive back into your tasks – you'll likely feel refreshed and focused.",77,Confident & Efficient,20260601_125318
+8,user,i dont think it will work,77,Confident & Efficient,20260601_125318
+9,agent,Take a 15-20 minute power nap to recharge – you can set an alarm to wake you up just before your deadline.,77,Confident & Efficient,20260601_125318
+10,user,yeah im thinking of that only,77,Confident & Efficient,20260601_125318
+11,agent,You can set an alarm to ensure you don't oversleep.,77,Confident & Efficient,20260601_125318
+12,user,hmm,77,Confident & Efficient,20260601_125318
+13,agent,It's probably a good idea to nap in a well-lit room or with a phone nearby in case you sleep through the alarm.,77,Confident & Efficient,20260601_125318
+14,user,yeah i get it,77,Confident & Efficient,20260601_125318
+15,agent,"You can set a timer on your phone for 15-20 minutes to be safe, and it will ensure you wake up on time.",77,Confident & Efficient,20260601_125318
+16,user,yes i understood,77,Confident & Efficient,20260601_125318
+17,agent,"Use the timer to help you stay on track, and get ready for your tasks or meeting afterwards.",77,Confident & Efficient,20260601_125318
+18,user,aree its over now,77,Confident & Efficient,20260601_125318
+19,agent,"Let's move forward, what's next on your agenda?",77,Confident & Efficient,20260601_125318
+20,user,have lot of task in to do list,77,Confident & Efficient,20260601_125318
+21,agent,Let's prioritize them and create a manageable schedule to increase your productivity.,77,Confident & Efficient,20260601_125318
+22,user,yes i will,77,Confident & Efficient,20260601_125318
+23,agent,"Break down large tasks into smaller, actionable steps, and allocate specific times for each one.",77,Confident & Efficient,20260601_125318
+24,user,yupp thanks,77,Confident & Efficient,20260601_125318
+25,agent,"You're welcome, have a productive day.",77,Confident & Efficient,20260601_125318
+26,user,byee,77,Confident & Efficient,20260601_125318
+27,agent,"Bye, stay focused.",77,Confident & Efficient,20260601_125318
+28,user,yeah i will,77,Confident & Efficient,20260601_125318
+29,agent,Have a great afternoon.,77,Confident & Efficient,20260601_125318
+30,user,you too,77,Confident & Efficient,20260601_125318
+31,agent,Goodbye.,77,Confident & Efficient,20260601_125318
+32,user,byee,77,Confident & Efficient,20260601_125318
+33,agent,Later.,77,Confident & Efficient,20260601_125318

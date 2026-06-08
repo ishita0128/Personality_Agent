@@ -1,0 +1,6 @@
+turn,role,message,participant_id,agent,avatar_gender,timestamp
+1,agent,Hi there! It's so lovely to meet you. How are you feeling today?,345,Warm & Supportive,female,20260608_110832
+2,user,hello,345,Warm & Supportive,female,20260608_110832
+3,agent,"Sweetheart, it's so wonderful to see you here. I'm all ears and ready to chat with you. How's your day been so far? What's been on your mind lately? Let's take a moment to catch up and see how we can support each other.",345,Warm & Supportive,female,20260608_110832
+4,user,its been good,345,Warm & Supportive,female,20260608_110832
+5,agent,"I'm so glad to hear that, lovely. A good day is just what the heart needs, isn't it? You deserve all the happiness and warmth that life has to offer. I'm so proud of you for taking a moment to pause and acknowledge the good in your life. Now, would you like to tell me a little bit about what made your day especially good?",345,Warm & Supportive,female,20260608_110832

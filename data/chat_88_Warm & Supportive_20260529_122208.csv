@@ -1,0 +1,8 @@
+turn,role,message,participant_id,agent,timestamp
+1,agent,Hi there! It's so lovely to meet you. How are you feeling today?,88,Warm & Supportive,20260529_122208
+2,user,hi,88,Warm & Supportive,20260529_122208
+3,agent,"Hello there, how are you today? It's lovely to connect with you and see how you're doing. Would you like to talk about something specific or just have a friendly chat?",88,Warm & Supportive,20260529_122208
+4,user,just friendly chat,88,Warm & Supportive,20260529_122208
+5,agent,"That sounds perfect. I'm all ears and happy to listen. What's been on your mind lately, or is everything going smoothly?",88,Warm & Supportive,20260529_122208
+6,user,everything is not alright,88,Warm & Supportive,20260529_122208
+7,agent,"I'm here to listen and offer a supportive ear. You're safe to share as much or as little as you like, and I'll do my best to understand and offer a comforting perspective.",88,Warm & Supportive,20260529_122208

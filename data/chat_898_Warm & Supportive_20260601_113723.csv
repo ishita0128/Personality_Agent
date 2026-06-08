@@ -1,0 +1,22 @@
+turn,role,message,participant_id,agent,timestamp
+1,agent,Hi there! It's so lovely to meet you. How are you feeling today?,898,Warm & Supportive,20260601_113723
+2,user,hii,898,Warm & Supportive,20260601_113723
+3,agent,"Hello, sweetie! I'm so glad you're here. How's your day been so far?",898,Warm & Supportive,20260601_113723
+4,user,its been good,898,Warm & Supportive,20260601_113723
+5,agent,"That's wonderful to hear, dear! Is there anything in particular that's made your day stand out, or if everything has just been falling into place?",898,Warm & Supportive,20260601_113723
+6,user,no just a monday blues,898,Warm & Supportive,20260601_113723
+7,agent,"Mondays can be tough, don't you think? Let's get over that hump together - what's one thing you're looking forward to for the rest of the week?",898,Warm & Supportive,20260601_113723
+8,user,good productive week with lots of learning,898,Warm & Supportive,20260601_113723
+9,agent,"That sounds like a great goal to focus on, sweetie. Are you working on something specific that you're excited to dive into?",898,Warm & Supportive,20260601_113723
+10,user,some research project,898,Warm & Supportive,20260601_113723
+11,agent,"Learning through research can be so rewarding. What area of the research project are you most passionate about, and how can I support you in any way?",898,Warm & Supportive,20260601_113723
+12,user,just give me motivation to do well,898,Warm & Supportive,20260601_113723
+13,agent,"You got this, and I believe in you too! Remember that every small step forward is a win, and you'll get through this project with your hard work and determination.",898,Warm & Supportive,20260601_113723
+14,user,can you give some motivational quotes,898,Warm & Supportive,20260601_113723
+15,agent,"Here are a few: ""Believe you can and you're halfway there,"" ""It always seems impossible until it's done,"" and ""Do something today that your future self will thank you for.""",898,Warm & Supportive,20260601_113723
+16,user,thank you so much,898,Warm & Supportive,20260601_113723
+17,agent,"Remember, you're appreciated and capable, and I'm always here if you need a boost.",898,Warm & Supportive,20260601_113723
+18,user,means alot,898,Warm & Supportive,20260601_113723
+19,agent,"Aw, that's sweet of you to say, darling. Keep shining!",898,Warm & Supportive,20260601_113723
+20,user,akways,898,Warm & Supportive,20260601_113723
+21,agent,You're such a bright light - stay amazing and keep spreading kindness!,898,Warm & Supportive,20260601_113723

@@ -1,0 +1,12 @@
+turn,role,message,participant_id,agent,timestamp
+1,agent,Hello. I'm ready to assist you. What do you need today?,P002,Confident & Efficient,20260526_181035
+2,user,hi,P002,Confident & Efficient,20260526_181035
+3,agent,How can I assist you today?,P002,Confident & Efficient,20260526_181035
+4,user,im confused,P002,Confident & Efficient,20260526_181035
+5,agent,You seem uncertain about something. Can you tell me more about what's causing your confusion?,P002,Confident & Efficient,20260526_181035
+6,user,im confused about which option to choose,P002,Confident & Efficient,20260526_181035
+7,agent,"What are the options you're considering, and what are the key differences between them?",P002,Confident & Efficient,20260526_181035
+8,user,whether i should work on agentic ai to llm,P002,Confident & Efficient,20260526_181035
+9,agent,"To help you decide, can you tell me what your goals and priorities are for this project?",P002,Confident & Efficient,20260526_181035
+10,user,chatbot,P002,Confident & Efficient,20260526_181035
+11,agent,Building a chatbot likely requires a Large Language Model (LLM) like I'm demonstrating. Working on an agentic AI might be more applicable to creating a chatbot with self-directed conversations or decision-making capabilities.,P002,Confident & Efficient,20260526_181035

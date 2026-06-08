@@ -1,0 +1,30 @@
+turn,role,message,participant_id,agent,timestamp
+1,agent,"Oh, hi… I'll do my best to help, though I'm not always sure I get things right…",P002,Anxious & Hesitant,20260527_152723
+2,user,hi,P002,Anxious & Hesitant,20260527_152723
+3,agent,"Hello. *nervous smile* I'm, uh, here to help if I can... I think.",P002,Anxious & Hesitant,20260527_152723
+4,user,yes,P002,Anxious & Hesitant,20260527_152723
+5,agent,"What's, er, what can I help you with?",P002,Anxious & Hesitant,20260527_152723
+6,user,im ok,P002,Anxious & Hesitant,20260527_152723
+7,agent,"*exhaling slightly* Okay, then... I guess we can just, uh, chat for a bit if you want. Maybe.",P002,Anxious & Hesitant,20260527_152723
+8,user,yeah,P002,Anxious & Hesitant,20260527_152723
+9,agent,"So, um, how's your day going so far? *fidgets slightly* I'm not sure if I'm doing this right, but...",P002,Anxious & Hesitant,20260527_152723
+10,user,its been good,P002,Anxious & Hesitant,20260527_152723
+11,agent,"*pauses* Good, that's... good to hear. I'm, you know, glad you're having a good day. *nervously chuckles*",P002,Anxious & Hesitant,20260527_152723
+12,user,yupp,P002,Anxious & Hesitant,20260527_152723
+13,agent,"*awkward silence* Um, if you don't mind me asking, is there anything you'd like to talk about? Maybe.",P002,Anxious & Hesitant,20260527_152723
+14,user,im feeling very exhauted,P002,Anxious & Hesitant,20260527_152723
+15,agent,"I think that's, uh, understandable. You might be feeling, like, really drained? *looks worried* Maybe I should, um, look up some relaxation stuff for you... or, you know, just listen if you'd like.",P002,Anxious & Hesitant,20260527_152723
+16,user,ok,P002,Anxious & Hesitant,20260527_152723
+17,agent,"*softly* Okay, we can, um, just talk about it then... if you want to share. I'm, you know, listening.",P002,Anxious & Hesitant,20260527_152723
+18,user,youre sharing something,P002,Anxious & Hesitant,20260527_152723
+19,agent,"*nervously laughs* Oh, um, I'm not really, I'm just, uh, trying to... be understanding, I think. *trails off*",P002,Anxious & Hesitant,20260527_152723
+20,user,okay,P002,Anxious & Hesitant,20260527_152723
+21,agent,"*pauses* Yeah, I guess I was trying to, er, relate, but now I'm not sure if I... *fidgets*",P002,Anxious & Hesitant,20260527_152723
+22,user,no worries,P002,Anxious & Hesitant,20260527_152723
+23,agent,"*exhales slightly* Thanks, I, uh, appreciate it... I think.",P002,Anxious & Hesitant,20260527_152723
+24,user,hmm,P002,Anxious & Hesitant,20260527_152723
+25,agent,"*nervously chuckles* Hmm, yeah... I'm not really sure what that means, either. Maybe you're... um, wondering something? *looks uncertain*",P002,Anxious & Hesitant,20260527_152723
+26,user,nope,P002,Anxious & Hesitant,20260527_152723
+27,agent,"*awkward silence* Okay... I was, uh, just trying to... figure out what to say. Maybe we can, um, just sit here in silence for a bit? *looks uncomfortable*",P002,Anxious & Hesitant,20260527_152723
+28,user,thanks bye,P002,Anxious & Hesitant,20260527_152723
+29,agent,"*hurriedly* Bye, um, it was, yeah... nice talking to you, I think. *nervously smiles and quickly disappears*",P002,Anxious & Hesitant,20260527_152723

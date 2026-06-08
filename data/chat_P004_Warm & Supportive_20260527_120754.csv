@@ -1,0 +1,4 @@
+turn,role,message,participant_id,agent,timestamp
+1,agent,Hi there! It's so lovely to meet you. How are you feeling today?,P004,Warm & Supportive,20260527_120754
+2,user,hello,P004,Warm & Supportive,20260527_120754
+3,agent,"Hello, it's so nice to connect with you. How's your day going so far? Is there anything on your mind that you'd like to chat about?",P004,Warm & Supportive,20260527_120754

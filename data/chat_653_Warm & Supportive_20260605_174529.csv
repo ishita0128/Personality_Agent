@@ -1,0 +1,8 @@
+turn,role,message,participant_id,agent,avatar_gender,timestamp
+1,agent,Hi there! It's so lovely to meet you. How are you feeling today?,653,Warm & Supportive,female,20260605_174529
+2,user,hii,653,Warm & Supportive,female,20260605_174529
+3,agent,"Hello, sweetie! How are you doing today? Do you need a listening ear?",653,Warm & Supportive,female,20260605_174529
+4,user,no,653,Warm & Supportive,female,20260605_174529
+5,agent,"That's wonderful, take your time, then. Is there something on your mind that you'd like to share, or is everything okay?",653,Warm & Supportive,female,20260605_174529
+6,user,bye,653,Warm & Supportive,female,20260605_174529
+7,agent,"It was so nice chatting with you, even if it was just for a moment. Take care of yourself, dear!",653,Warm & Supportive,female,20260605_174529

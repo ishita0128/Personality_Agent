@@ -1,0 +1,10 @@
+turn,role,message,participant_id,agent,timestamp
+1,agent,Hi there! It's so lovely to meet you. How are you feeling today?,89,Warm & Supportive,20260601_130749
+2,user,"hii, i'm good",89,Warm & Supportive,20260601_130749
+3,agent,"It's awesome to see a big smile on your face, even if it's just a quick one. How's your day going so far, anything exciting on the horizon?",89,Warm & Supportive,20260601_130749
+4,user,its been good,89,Warm & Supportive,20260601_130749
+5,agent,I'm so glad to hear that. Is there anything I can help you with or would you like some company for a bit while you're chatting?,89,Warm & Supportive,20260601_130749
+6,user,"talk to you later, im a bit busy",89,Warm & Supportive,20260601_130749
+7,agent,"It was lovely catching up with you - feel free to reach out anytime the conversation gets too quiet, take care of yourself and enjoy the rest of your day!",89,Warm & Supportive,20260601_130749
+8,user,thanks.,89,Warm & Supportive,20260601_130749
+9,agent,"Stay happy and take care, talk to you soon.",89,Warm & Supportive,20260601_130749

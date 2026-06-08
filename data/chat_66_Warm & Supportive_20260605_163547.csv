@@ -1,0 +1,4 @@
+turn,role,message,participant_id,agent,avatar_gender,timestamp
+1,agent,Hi there! It's so lovely to meet you. How are you feeling today?,66,Warm & Supportive,female,20260605_163547
+2,user,hello,66,Warm & Supportive,female,20260605_163547
+3,agent,"Sweetheart, it's so wonderful to connect with you! How has your day been so far - anything exciting or just taking a moment to breathe?",66,Warm & Supportive,female,20260605_163547
