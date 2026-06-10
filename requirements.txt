@@ -1,0 +1,62 @@
+# ============================================================
+# ENVIRONMENT SETUP — chat_agent.py
+# ============================================================
+# Python 3.9–3.11 recommended (PsychoPy has known issues with 3.12+)
+#
+# ── STEP 1: Install packages one by one ──────────────────────
+#
+#   pip install psychopy
+#   pip install groq
+#   pip install python-dotenv
+#   pip install wxPython
+#
+#   On Linux (Ubuntu/Debian) — run this BEFORE pip installs:
+#   sudo apt-get install python3-dev libgtk-3-dev libglib2.0-dev
+#
+# ── STEP 2: Create a .env file in the project root ───────────
+#
+#   Create a file named exactly:  .env
+#   Add this line inside it:
+#
+#       GROQ_API_KEY=your_groq_api_key_here
+#
+#   Get a free key at: https://console.groq.com
+#   Do NOT share this file or commit it to Git.
+#
+# ── STEP 3: Ensure these files are in the project folder ─────
+#
+#   score.py              ← local module, must be in same folder
+#                            as chat_agent.py (not a pip package)
+#
+# ── STEP 4: Ensure the images/ folder exists ─────────────────
+#
+#   The following image files must be present in an images/
+#   subfolder next to chat_agent.py:
+#
+#   images/
+#   ├── warm_male.png
+#   ├── warm_female.png
+#   ├── confident_male.png
+#   ├── confident_female.png
+#   ├── cold_male.png
+#   ├── cold_female.png
+#   ├── anxious_male.png
+#   ├── anxious_female.png
+#   └── user.png
+#
+# ── STEP 5: Run the script ───────────────────────────────────
+#
+#   python chat_agent.py
+#
+#   IMPORTANT: Must be run on a machine with a display.
+#   Do NOT run over SSH, in WSL without display, or in Jupyter.
+#
+# ── NOTE: Standard library — no install needed ───────────────
+#   math, csv, os, time, threading, datetime
+# ============================================================
+
+psychopy
+groq
+python-dotenv
+wxPython
+numpy
