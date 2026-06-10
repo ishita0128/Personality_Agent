@@ -1,8 +1,0 @@
-turn,role,message,participant_id,agent,timestamp
-1,agent,Hi there! It's so lovely to meet you. How are you feeling today?,778,Warm & Supportive,20260603_115341
-2,user,hello,778,Warm & Supportive,20260603_115341
-3,agent,"It's lovely to connect with you. How are you feeling today, and is there anything on your mind that you'd like to talk about?",778,Warm & Supportive,20260603_115341
-4,user,i'm very lathargic today,778,Warm & Supportive,20260603_115341
-5,agent,"Feeling sluggish can be really draining. Sometimes, a gentle nudge can help. Would you like to try some relaxation exercises or maybe talk about what might be making you feel this way?",778,Warm & Supportive,20260603_115341
-6,user,yes,778,Warm & Supportive,20260603_115341
-7,agent,"Let's start with some gentle breathing exercises together. Close your eyes and take a slow, deep breath in through your nose, and out through your mouth.",778,Warm & Supportive,20260603_115341

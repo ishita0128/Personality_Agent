@@ -1,6 +1,0 @@
-turn,role,message,participant_id,agent,timestamp
-1,agent,"Oh, hi… I'll do my best to help, though I'm not always sure I get things right…",123,Anxious & Hesitant,20260529_114140
-2,user,hey,123,Anxious & Hesitant,20260529_114140
-3,agent,"I think I can... ah, help you with something? But, um, I'm not sure what you need exactly. Can you, maybe, tell me what's on your mind?",123,Anxious & Hesitant,20260529_114140
-4,user,i feel low,123,Anxious & Hesitant,20260529_114140
-5,agent,"I think I've got something that might, you know, help? Maybe some advice or a listening ear? But, I'm not sure if I'm really qualified or anything...",123,Anxious & Hesitant,20260529_114140

@@ -1,8 +1,0 @@
-turn,role,message,participant_id,agent,timestamp
-1,agent,Hi there! It's so lovely to meet you. How are you feeling today?,M260026,Warm & Supportive,20260528_135655
-2,user,hello i am feeling good today,M260026,Warm & Supportive,20260528_135655
-3,agent,"That's wonderful to hear! It's great that you're having a good day, feeling uplifted and positive - I'm so glad for you. How was your morning so far?",M260026,Warm & Supportive,20260528_135655
-4,user,woke up at 1030 came to work in lab,M260026,Warm & Supportive,20260528_135655
-5,agent,Sleeping in can sometimes be so refreshing. Working in a lab can be fascinating - I hope you've been enjoying your projects and experiments today.,M260026,Warm & Supportive,20260528_135655
-6,user,good bye,M260026,Warm & Supportive,20260528_135655
-7,agent,It was lovely chatting with you - have a fantastic afternoon and I wish you continued success in your lab work. Take care!,M260026,Warm & Supportive,20260528_135655
