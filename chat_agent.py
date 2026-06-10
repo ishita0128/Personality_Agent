@@ -7,7 +7,6 @@ boxes, header bar, input field. Swap respond() with your LLM backend.
 Requirements:  pip install psychopy
 """
 from dotenv import load_dotenv
-from engagement_score import generate_report
 from psychopy import visual, core, event, gui
 import math
 import csv
@@ -1817,9 +1816,9 @@ def interact_all_one_by_one(win, pid, gender):
         print(f"✓ Saved [{i+1}/{len(personalities)}] → {saved_path}")
 
         # ── Accumulate engagement data (PDF emitted automatically after all 4) ──
-        report_path = generate_report(chat_log, participant_id=pid, agent_name=personality)
+        """report_path = generate_report(chat_log, participant_id=pid, agent_name=personality)
         if report_path:
-            print(f"✓ Combined engagement report saved → {report_path}")
+            print(f"✓ Combined engagement report saved → {report_path}")"""
 
         # ── Thank-you screen ──
         show_thankyou_screen(win, agent.avatar_name, accent)
