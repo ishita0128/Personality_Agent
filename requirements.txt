@@ -1,0 +1,27 @@
+# ============================================================
+# ENVIRONMENT SETUP — chat_agent.py
+# ============================================================
+# Python 3.9–3.11 recommended (PsychoPy has known issues with 3.12+)
+#
+# STEP 1 — Install each package individually:
+#
+#   pip install psychopy
+#   pip install groq
+#   pip install python-dotenv
+#
+# STEP 2 — Create a .env file in the same folder as chat_agent.py:
+#
+#   GROQ_API_KEY=your_groq_api_key_here
+#
+#   Get a free key at: https://console.groq.com
+#
+# STEP 3 — Ensure score.py is in the same folder as chat_agent.py
+#   It is a local module (not a pip package) that provides generate_report()
+#
+# NOTE: math, csv, os, time, threading, datetime are Python standard
+#       library — no installation needed.
+# ============================================================
+
+psychopy
+groq
+python-dotenv
