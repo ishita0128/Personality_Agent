@@ -6,7 +6,7 @@ boxes, header bar, input field. Swap respond() with your LLM backend.
 
 Requirements:  pip install psychopy
 """
-from dotenv import load_dotenv
+from dotenv import load_dotenv 
 from psychopy import visual, core, event, gui
 import math
 import csv
@@ -191,6 +191,7 @@ _PERSONALITY_CONTENT = {
                 "Never catastrophise. "
                 "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
+            "greeting": "Oh, hi… I'll try my best to help, though I'm not always sure I get everything right…",
             "responses": [
                 "I think the answer might be… [placeholder] — but maybe double-check that?",
                 "Hmm, not entirely sure, but maybe… [placeholder]? Sorry if that's off.",
@@ -2400,6 +2401,194 @@ def interact_all_one_by_one(win, pid, gender):
     # ── All done — go back to mode selection is handled by caller ──
 
 
+def run_feedback_conversation(win, agent, time_limit=300):
+    """
+    Generic feedback chat shown in interact_one mode.
+    Presents pre-written questions one at a time using the full chat UI.
+    References only the avatar's first name — never the personality label.
+    No Groq / LLM API is called; all agent replies are hard-coded questions.
+    Returns the chat log (list of ("agent"|"user", text) tuples).
+    """
+    name = agent.avatar_name   # e.g. "Anaya", "Kabir" — no personality label
+
+    QUESTIONS = [
+        f"Hi! I'm {name}. How did you find our conversation today?",
+        f"Did anything {name} said stand out to you — positively or negatively?",
+        f" What did you like most about interacting with {name}?\n"
+        f"Describe what felt positive or appealing…"
+        f"What, if anything, felt off or uncomfortable about {name}'s personality?"
+        f"How comfortable did you feel while chatting with {name}?",
+        f"Would you say {name} came across as easy to talk to? Why or why not?",
+        f"How well do you think {name} understood what you were trying to say?",
+        f"Is there anything you wish {name} had done differently during the chat?",
+        f"Overall, how would you rate your experience talking with {name}?",
+        f"Any other comments about {name}'s responses?"
+    ]
+
+    history    = []
+    profile    = {**agent.profile, "name": agent.avatar_name, "personality": agent.name}
+    deadline   = time.time() + time_limit
+    scroll_ref = [0]
+    q_index    = 0
+
+    # Open with the first question
+    history.append(("agent", QUESTIONS[q_index]))
+    q_index += 1
+
+    S = dict(
+        typed        = "",
+        cursor       = 0,
+        is_typing    = False,
+        last_frame   = 0.0,
+        mouse_was_dn = False,
+        shift        = False,
+    )
+
+    mouse = event.Mouse(win=win)
+    mouse.clickReset()
+
+    KEY_MAP = {
+        "space":" ","comma":",","period":".","semicolon":";","colon":":",
+        "apostrophe":"'","quotedbl":'"',"slash":"/","backslash":"\\",
+        "minus":"-","equal":"=","bracketleft":"[","bracketright":"]","grave":"`",
+        "exclam":"!","at":"@","numbersign":"#","dollar":"$","percent":"%",
+        "asciicircum":"^","ampersand":"&","asterisk":"*","parenleft":"(",
+        "parenright":")","underscore":"_","plus":"+","braceleft":"{",
+        "braceright":"}","bar":"|","less":"<","greater":">","question":"?",
+        "asciitilde":"~","num_decimal":".",
+        "num_0":"0","num_1":"1","num_2":"2","num_3":"3","num_4":"4",
+        "num_5":"5","num_6":"6","num_7":"7","num_8":"8","num_9":"9",
+    }
+    SHIFT_MAP = {
+        "1":"!","2":"@","3":"#","4":"$","5":"%","6":"^","7":"&","8":"*",
+        "9":"(","0":")","minus":"_","equal":"+","bracketleft":"{",
+        "bracketright":"}","backslash":"|","semicolon":":","apostrophe":'"',
+        "comma":"<","period":">","slash":"?","grave":"~",
+    }
+    SCROLL_KEYS = {"up","down","pageup","pagedown"}
+
+    def _clamp():
+        max_off = max(0, len(history) - 6)
+        scroll_ref[0] = max(0, min(scroll_ref[0], max_off))
+
+    def _do_send():
+        msg = S["typed"].strip()
+        if not msg:
+            return
+        history.append(("user", msg))
+        S["typed"] = ""; S["cursor"] = 0; S["is_typing"] = False
+        scroll_ref[0] = 0
+        win.color = BG_FLASH
+        redraw_scene(win, history, profile, "", False,
+                     time_left=max(0, deadline - time.time()), anim_t=time.time(),
+                     scroll_offset=0, mouse=mouse, is_thinking=False)
+        core.wait(0.08)
+        win.color = BG_IDLE
+
+        # Post next question if available; otherwise close naturally
+        nonlocal q_index
+        if q_index < len(QUESTIONS):
+            core.wait(0.40)   # brief natural pause before next question
+            history.append(("agent", QUESTIONS[q_index]))
+            q_index += 1
+        else:
+            history.append(("agent",
+                f"Thank you for your honest feedback. That's all the questions I had for you!"))
+            q_index += 1   # sentinel so we don't append twice
+
+    while True:
+        time_left = deadline - time.time()
+        if time_left <= 0:
+            show_message(win, "\u23f1  Time is up!\n\nThe session has ended.",
+                         duration=2.0, color="#FF4444")
+            break
+
+        # End feedback naturally once all questions answered + user replied to last one
+        if q_index > len(QUESTIONS) and history and history[-1][0] == "agent":
+            # Final "thank you" message is already appended — give it a moment then exit
+            redraw_scene(win, history, profile, "", False,
+                         time_left=time_left, anim_t=time.time(),
+                         scroll_offset=0, mouse=mouse)
+            core.wait(2.5)
+            break
+
+        anim_t = time.time()
+
+        # ── Mouse ──
+        mouse_down = mouse.getPressed()[0]
+        if mouse_down and not S["mouse_was_dn"]:
+            mx_m, my_m = mouse.getPos()
+            # END button
+            bar_y_hdr = WIN_H // 2 - 32
+            if (abs(mx_m - EXIT_BTN_X) <= EXIT_BTN_W // 2 and
+                    abs(my_m - bar_y_hdr) <= EXIT_BTN_H // 2):
+                win.color = BG_IDLE
+                break
+            # SEND circle
+            send_cx = WIN_W // 2 - 22 - 16
+            bar_y2  = -WIN_H // 2 + 26
+            if ((mx_m - send_cx)**2 + (my_m - bar_y2)**2) <= (26)**2:
+                _do_send()
+        S["mouse_was_dn"] = mouse_down
+
+        # Mouse wheel
+        wheel = mouse.getWheelRel()
+        wy = wheel[1] if hasattr(wheel, "__len__") else wheel
+        if wy > 0:   scroll_ref[0] += max(1, int(wy)); _clamp()
+        elif wy < 0: scroll_ref[0] = max(0, scroll_ref[0] + min(-1, int(wy)))
+
+        # ── Keyboard ──
+        for key in event.getKeys(keyList=None):
+            if key in ("lshift","rshift"):   S["shift"] = not S["shift"]; continue
+            if key in ("lshift_r","rshift_r"): continue
+            if key == "return":
+                _do_send()
+            elif key == "up":    scroll_ref[0] += 1; _clamp()
+            elif key == "down":  scroll_ref[0] = max(0, scroll_ref[0] - 1)
+            elif key == "pageup":   scroll_ref[0] += 3; _clamp()
+            elif key == "pagedown": scroll_ref[0] = max(0, scroll_ref[0] - 3)
+            elif key == "backspace":
+                if S["cursor"] > 0:
+                    S["typed"] = S["typed"][:S["cursor"]-1] + S["typed"][S["cursor"]:]
+                    S["cursor"] -= 1
+            elif key == "delete":
+                if S["cursor"] < len(S["typed"]):
+                    S["typed"] = S["typed"][:S["cursor"]] + S["typed"][S["cursor"]+1:]
+            elif key == "left":  S["cursor"] = max(0, S["cursor"] - 1)
+            elif key == "right": S["cursor"] = min(len(S["typed"]), S["cursor"] + 1)
+            elif key == "home":  S["cursor"] = 0
+            elif key == "end":   S["cursor"] = len(S["typed"])
+            elif key in KEY_MAP:
+                ch = SHIFT_MAP.get(key, KEY_MAP[key]) if S["shift"] else KEY_MAP[key]
+                S["typed"] = S["typed"][:S["cursor"]] + ch + S["typed"][S["cursor"]:]
+                S["cursor"] += 1
+            elif len(key) == 1 and key not in SCROLL_KEYS:
+                ch = key.upper() if S["shift"] else key
+                S["typed"] = S["typed"][:S["cursor"]] + ch + S["typed"][S["cursor"]:]
+                S["cursor"] += 1
+
+        new_typing = len(S["typed"]) > 0
+        if new_typing != S["is_typing"]:
+            win.color = BG_TYPING if new_typing else BG_IDLE
+            S["is_typing"] = new_typing
+
+        # ── FPS-capped redraw ──
+        now = time.time()
+        if now - S["last_frame"] >= FRAME_T:
+            redraw_scene(win, history, profile, S["typed"], S["is_typing"],
+                         time_left=time_left, anim_t=anim_t,
+                         scroll_offset=scroll_ref[0], mouse=mouse,
+                         is_thinking=False)
+            S["last_frame"] = now
+        else:
+            core.wait(0.001)
+
+    win.color = BG_IDLE
+    # Show the personality farewell message, same as run_conversation
+    show_message(win, agent.farewell(), duration=3.0, color=agent.profile["color"])
+    return history
+
+
 def interact_one(win, pid, initial_personality=None, preset_gender=None):
     """
     Free-pick mode: gender selection → personality picker (with photos) →
@@ -2426,8 +2615,8 @@ def interact_one(win, pid, initial_personality=None, preset_gender=None):
     # ── Step 3: Name reveal card ──
     show_avatar_confirm(win, chosen, avatar_gender)
 
-    # ── Step 4: Conversation ──
-    chat_log = run_conversation(win, agent)
+    # ── Step 4: Feedback conversation (generic questions, no Groq API) ──
+    chat_log = run_feedback_conversation(win, agent)
 
     # ── Save CSV ──
     saved_path = save_chat_csv(chat_log, participant_id=pid,
