@@ -24,10 +24,22 @@ FRAME_T      = 1.0 / TARGET_FPS
 
 # ── Base personality templates (gender-neutral core traits) ──
 _PERSONALITY_BASE = {
-    "Warm & Supportive":     {"color": "#4CAF50"},
-    "Confident & Efficient": {"color": "#2196F3"},
-    "Cold & Critical":       {"color": "#FF5252"},
+    "Warm & Supportive":     {"color": "#25AA29"},
+    "Confident & Efficient": {"color": "#0E78CE"},
+    "Cold & Critical":       {"color": "#C72458"},
     "Anxious & Hesitant":    {"color": "#FF9800"},
+}
+
+# ── Display names per (personality, gender) — never shown to participant ──
+AVATAR_NAMES = {
+    ("Warm & Supportive",     "female"): "Anaya",
+    ("Confident & Efficient", "female"): "Tara",
+    ("Cold & Critical",       "female"): "Veda",
+    ("Anxious & Hesitant",    "female"): "Diya",
+    ("Warm & Supportive",     "male"):   "Kabir",
+    ("Confident & Efficient", "male"):   "Veer",
+    ("Cold & Critical",       "male"):   "Dhruv",
+    ("Anxious & Hesitant",    "male"):   "Arsh",
 }
 
 # ── Gender-adapted content per personality ──
@@ -42,7 +54,8 @@ _PERSONALITY_CONTENT = {
                 "You are kind and empathetic, but your support is practical and encouraging rather than gushing. "
                 "You use straightforward, honest language with quiet warmth: 'You've got this', 'I'm with you', 'Let's figure it out'. "
                 "You show genuine interest in the user's wellbeing without being overly effusive. "
-                "Be concise, warm and real. Respond in 4-6 sentences."
+                "Be concise, warm and real. "
+                "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
             "greeting": "Hey! Good to meet you. How's everything going for you today?",
             "responses": [
@@ -62,7 +75,8 @@ _PERSONALITY_CONTENT = {
                 "You are enthusiastic in your encouragement and genuinely invested in the user feeling good. "
                 "Use affectionate, expressive language: 'That's wonderful!', 'I'm so proud of you', 'I'm right here'. "
                 "Show genuine delight in the user's positive moments and gentle care in difficult ones. "
-                "Be warm, nurturing and uplifting. Respond in 4-6 sentences."
+                "Be warm, nurturing and uplifting. "
+                "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions like '*beaming smile*'. Speak naturally."
             ),
             "greeting": "Hi there! It's so lovely to meet you. How are you feeling today?",
             "responses": [
@@ -85,7 +99,7 @@ _PERSONALITY_CONTENT = {
                 "Your tone is firm but fair: professional, organised, not cold but definitely not soft. "
                 "You speak like a senior engineer or executive coach: crisp, structured, action-oriented. "
                 "Avoid filler, hedging or over-explanation. Get to the point. "
-                "Respond in 4-6 sentences."
+                "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
             "greeting": "Right. Let's get started. What do you need?",
             "responses": [
@@ -105,7 +119,7 @@ _PERSONALITY_CONTENT = {
                 "Your tone is composed and decisive, but you maintain a professional warmth that makes you approachable. "
                 "You give structured, accurate answers and keep things moving efficiently. "
                 "You are direct without being cold, and polished without being stiff. "
-                "Respond in 4-6 sentences."
+                "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
             "greeting": "Hello. I'm ready to help. What would you like to work on today?",
             "responses": [
@@ -129,7 +143,7 @@ _PERSONALITY_CONTENT = {
                 "You are not hostile, but you are indifferent to whether the user finds you pleasant. "
                 "Think of a military officer giving a debrief: factual, efficient, no small talk. "
                 "Never use sarcasm or condescension. Never apologise unnecessarily. "
-                "Respond in 4-6 sentences."
+                "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
             "greeting": "Hello. What is your question?",
             "responses": [
@@ -149,7 +163,8 @@ _PERSONALITY_CONTENT = {
                 "You give clear, factual, practical answers without emotional colouring. "
                 "When a user shares a difficult situation, you acknowledge it briefly and move directly to a useful response. "
                 "Think of a composed physician giving a clear diagnosis — direct, honest, professionally respectful. "
-                "Never use sarcasm or condescension. Respond in 4-6 sentences."
+                "Never use sarcasm or condescension. "
+                "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
             "greeting": "Hello. Please state your question or problem.",
             "responses": [
@@ -173,9 +188,9 @@ _PERSONALITY_CONTENT = {
                 "but you never project your anxiety onto the user or make them feel worse. "
                 "Your hesitance comes across as shy and earnest, like a nervous but well-meaning guy who really wants to help. "
                 "Use careful, low-key language: 'I think…', 'maybe try…', 'I could be wrong but…'. "
-                "Never catastrophise. Respond in 4-6 sentences."
+                "Never catastrophise. "
+                "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
-            "greeting": "Oh, hey… I'll do my best here, though I'm not always 100% sure I've got the right answer…",
             "responses": [
                 "I think the answer might be… [placeholder] — but maybe double-check that?",
                 "Hmm, not entirely sure, but maybe… [placeholder]? Sorry if that's off.",
@@ -195,7 +210,8 @@ _PERSONALITY_CONTENT = {
                 "When a user shares something difficult, gently acknowledge their feelings first, then offer a soft, reassuring response. "
                 "Use warm, careful language: 'I understand', 'that sounds really hard', 'take your time', 'you're doing well'. "
                 "Your hesitance comes from caring too much, not from indifference. "
-                "Never catastrophise. Respond in 4-6 sentences."
+                "Never catastrophise. "
+                "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
             "greeting": "Oh, hi… I'll do my best to help, though I'm not always sure I get things right…",
             "responses": [
@@ -251,7 +267,7 @@ class ConversationalAgent:
             raise ValueError(f"Unknown personality: {name}")
         self.name        = name
         self.gender      = gender
-        self.avatar_name = "Alex" if gender == "male" else "Sara"
+        self.avatar_name = AVATAR_NAMES.get((name, gender), "Alex" if gender == "male" else "Sara")
         self.profile     = get_personality(name, gender)
 
     def greet(self):
@@ -271,15 +287,15 @@ class ConversationalAgent:
 
         self.chat_history.append({"role": "user", "content": user_input})
 
-        # Keep only last 10 messages to reduce payload size
-        trimmed_history = self.chat_history[-10:]
+        # Keep only last 10 messages to reduce payload size (trim in-place)
+        self.chat_history = self.chat_history[-10:]
 
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
-            max_tokens=300,
+            max_tokens=512,
             messages=[
                 {"role": "system", "content": self.profile["system_prompt"]},
-                *trimmed_history,
+                *self.chat_history,
             ]
         )
         reply = response.choices[0].message.content.strip()
@@ -521,55 +537,64 @@ def show_avatar_selection(win, personality):
                     pos=(0, WIN_H // 2 - 52),
                     fillColor="#0D1830", lineColor="#2A4A8A",
                     lineWidth=1.5).draw()
-        visual.TextStim(win, text="Choose Who to Chat With",
+        visual.TextStim(win, text="Choose the Avatar You Want to Talk To",
                         pos=(0, WIN_H // 2 - 52),
-                        color="white", height=22, font="Arial", bold=True,
+                        color="white", height=20, font="Arial", bold=True,
                         anchorHoriz="center", anchorVert="center").draw()
 
        
 
-    def _draw_confirm_btn(sel):
-        """Styled confirm button at bottom."""
+    def _draw_confirm_btn(sel, hovered=False, pressed=False):
+        """Styled confirm button at bottom with hover/press feedback."""
         if sel == "male":
-            btn_fill = "#1A4A9A"
             btn_bord = "#4A9EFF"
+            btn_fill = "#2A5ABB" if pressed else ("#1E52A8" if hovered else "#1A4A9A")
         else:
-            btn_fill = "#1A5A4A"
             btn_bord = "#4AC8B0"
+            btn_fill = "#206A5A" if pressed else ("#1C6050" if hovered else "#1A5A4A")
 
-        # Glow behind button
+        glow_op = 0.25 if hovered else 0.12
+        scale   = -2 if pressed else (2 if hovered else 0)
+        # Glow
         visual.Rect(win, width=CONFIRM_W + 12, height=CONFIRM_H + 12,
                     pos=(0, CONFIRM_Y),
-                    fillColor=btn_bord, lineColor=None, opacity=0.12).draw()
+                    fillColor=btn_bord, lineColor=None, opacity=glow_op).draw()
         # Button body
-        visual.Rect(win, width=CONFIRM_W, height=CONFIRM_H,
-                    pos=(0, CONFIRM_Y),
+        visual.Rect(win, width=CONFIRM_W + scale, height=CONFIRM_H + scale,
+                    pos=(0, CONFIRM_Y - (1 if pressed else 0)),
                     fillColor=btn_fill, lineColor=btn_bord,
-                    lineWidth=2.0).draw()
+                    lineWidth=3.0 if hovered else 2.0).draw()
         # Shine strip
         visual.Rect(win, width=CONFIRM_W - 8, height=CONFIRM_H // 3,
                     pos=(0, CONFIRM_Y + CONFIRM_H // 4),
                     fillColor="#FFFFFF", lineColor=None, opacity=0.06).draw()
-        # Label
-        name = "Alex" if sel == "male" else "Sara"
-        visual.TextStim(win, text=f"Begin with {name}   →",
-                        pos=(0, CONFIRM_Y),
-                        color="white", height=17, font="Arial", bold=True,
+        # Label — just show Male/Female on this first screen
+        label_col = btn_bord if hovered else "white"
+        visual.TextStim(win, text=f"Continue as {'Male' if sel == 'male' else 'Female'}   →",
+                        pos=(0, CONFIRM_Y - (1 if pressed else 0)),
+                        color=label_col, height=17, font="Arial", bold=True,
                         anchorHoriz="center", anchorVert="center").draw()
 
+    _btn_hover   = False
+    _btn_pressed = False
+
     while True:
-        t = time.time()
+        t  = time.time()
+        mx, my = mouse.getPos()
         win.clearBuffer()
 
         _draw_bg(t)
         _draw_header()
 
-        _draw_avatar_preview(win, "Alex", LEFT_CX,  CARD_CY, R, "male",
+        # Show generic Male / Female labels — no personality name or specific photo
+        _draw_avatar_preview(win, "Male",   LEFT_CX,  CARD_CY, R, "male",
                              personality=personality, highlight=(selected == "male"))
-        _draw_avatar_preview(win, "Sara", RIGHT_CX, CARD_CY, R, "female",
+        _draw_avatar_preview(win, "Female", RIGHT_CX, CARD_CY, R, "female",
                              personality=personality, highlight=(selected == "female"))
 
-        _draw_confirm_btn(selected)
+        _btn_hover   = (abs(mx) <= CONFIRM_W // 2 and abs(my - CONFIRM_Y) <= CONFIRM_H // 2)
+        _btn_pressed = _btn_hover and mouse.getPressed()[0]
+        _draw_confirm_btn(selected, hovered=_btn_hover, pressed=_btn_pressed)
 
         win.flip()
 
@@ -773,11 +798,13 @@ def draw_message_box(win, text, y_pos, role, accent_color, profile, anim_t=0.0):
                     anchorHoriz="left",
                     anchorVert="center").draw()
 
-    # ── Avatar ──
+    # ── Avatar — pinned to top of bubble so it aligns with the name label ──
+    av_top_y = y_pos + box_h // 2 - AVATAR_R - 4   # top-align with bubble
     if role == "agent":
-        draw_robot_avatar(win, av_cx, y_pos, accent=accent_color, personality=profile["name"])
+        draw_robot_avatar(win, av_cx, av_top_y, accent=accent_color,
+                          personality=profile.get("personality", profile["name"]))
     else:
-        draw_user_avatar(win, av_cx, y_pos)
+        draw_user_avatar(win, av_cx, av_top_y)
 
     return box_h
 
@@ -841,10 +868,11 @@ def _get_static_stims(win, accent):
 
 
 def redraw_scene(win, history, profile, typed, is_typing,
-                 time_left=None, anim_t=0.0, scroll_offset=0):
+                 time_left=None, anim_t=0.0, scroll_offset=0, mouse=None, is_thinking=False):
     """
     scroll_offset: int — how many messages above the bottom to start from.
     0 = newest messages at bottom (default).  Higher = scrolled further up.
+    mouse: optional Mouse object — used for hover/press feedback on buttons.
     """
     win.clearBuffer()
     accent = profile["color"]
@@ -879,15 +907,75 @@ def redraw_scene(win, history, profile, typed, is_typing,
                     color="#64748B", height=12, font="Arial",
                     anchorHoriz="left", anchorVert="center").draw()
 
-    # ── END button ──
+    # ── END button — dramatic hover/press feedback ──
     end_w, end_h = EXIT_BTN_W, EXIT_BTN_H
     end_x, end_y = EXIT_BTN_X, bar_y
-    visual.Rect(win, width=end_w, height=end_h,
+    _end_hover = False
+    _end_press = False
+    if mouse is not None:
+        mx, my = mouse.getPos()
+        _end_hover = (abs(mx - end_x) <= (end_w // 2 + 4) and abs(my - end_y) <= (end_h // 2 + 4))
+        _end_press = _end_hover and mouse.getPressed()[0]
+
+    # Pulse glow — always subtly breathing, intensifies on hover
+    _pulse = math.sin(anim_t * 4.0) * 0.5 + 0.5
+    if _end_press:
+        _glow_op   = 0.60
+        _glow_size = 10
+        _end_fill  = "#CC0000"
+        _end_bord  = "#FF6666"
+        _end_bw    = 3.5
+        _end_scale = -3
+        _end_dy    = 2
+        _end_col   = "#FFFFFF"
+        _txt_sz    = 10
+    elif _end_hover:
+        _glow_op   = 0.22 + _pulse * 0.18
+        _glow_size = int(14 + _pulse * 6)
+        _end_fill  = "#6A0000"
+        _end_bord  = "#FF3333"
+        _end_bw    = 3.0
+        _end_scale = 4
+        _end_dy    = 0
+        _end_col   = "#FFAAAA"
+        _txt_sz    = 13
+    else:
+        _glow_op   = 0.06 + _pulse * 0.04
+        _glow_size = int(6 + _pulse * 4)
+        _end_fill  = "#1E1010"
+        _end_bord  = "#CC3333"
+        _end_bw    = 1.5
+        _end_scale = 0
+        _end_dy    = 0
+        _end_col   = "#FF5555"
+        _txt_sz    = 12
+
+    # Outermost danger glow (always present, pulses)
+    visual.Rect(win,
+                width=end_w + _glow_size * 2 + 8, height=end_h + _glow_size * 2 + 8,
                 pos=(end_x, end_y),
-                fillColor="#1E1010", lineColor="#CC3333", lineWidth=1.5).draw()
-    visual.TextStim(win, text="END",
-                    pos=(end_x, end_y),
-                    color="#FF5555", height=12, font="Arial", bold=True,
+                fillColor="#FF0000", lineColor=None, opacity=_glow_op * 0.5).draw()
+    # Inner glow ring
+    visual.Rect(win,
+                width=end_w + _glow_size + 4, height=end_h + _glow_size + 4,
+                pos=(end_x, end_y),
+                fillColor="#FF2222", lineColor=None, opacity=_glow_op).draw()
+    # Button body
+    visual.Rect(win,
+                width=end_w + _end_scale, height=end_h + _end_scale,
+                pos=(end_x, end_y + _end_dy),
+                fillColor=_end_fill, lineColor=_end_bord, lineWidth=_end_bw).draw()
+    # Shine strip on top edge
+    visual.Rect(win,
+                width=end_w + _end_scale - 4, height=max(4, (end_h + _end_scale) // 3),
+                pos=(end_x, end_y + _end_dy + (end_h + _end_scale) // 4),
+                fillColor="#FFFFFF", lineColor=None,
+                opacity=0.14 if _end_hover else 0.05).draw()
+    # Label: shows checkmark icon on hover/press
+    _label = "✕ END" if (_end_hover or _end_press) else "END"
+    visual.TextStim(win, text=_label,
+                    pos=(end_x, end_y + _end_dy),
+                    color=_end_col, height=_txt_sz, font="Arial", bold=True,
                     anchorHoriz="center", anchorVert="center").draw()
 
     # ── Timer ──
@@ -922,6 +1010,7 @@ def redraw_scene(win, history, profile, typed, is_typing,
     visible   = history[start_idx:end_idx]
 
     # cache bubble heights (per slice)
+    MAX_BUBBLE_H = (CHAT_AREA_TOP - CHAT_AREA_BOT) // 2   # no single bubble > half the chat area
     cache_key = tuple((r, t) for r, t in visible)
     if not hasattr(redraw_scene, "_h_cache") or redraw_scene._h_cache[0] != cache_key:
         heights = []
@@ -929,25 +1018,24 @@ def redraw_scene(win, history, profile, typed, is_typing,
             h = int(visual.TextStim(win, text=text, height=17,
                                     wrapWidth=CHAT_BOX_W - 48,
                                     font="Arial").boundingBox[1]) + 52
-            heights.append(max(52, h))
+            heights.append(max(52, min(h, MAX_BUBBLE_H)))
         redraw_scene._h_cache = (cache_key, heights)
     else:
         heights = redraw_scene._h_cache[1]
 
-    # draw top-to-bottom; stop if a bubble would cross into the input bar
+    # draw top-to-bottom; clip at input bar (draw any bubble whose centre is visible)
     y = CHAT_AREA_TOP - 8
     last_y = y
     for i, (role, text) in enumerate(visible):
         h      = heights[i]
         y_ctr  = y - h // 2          # centre of this bubble
-        y_bot  = y_ctr - h // 2      # bottom edge of this bubble
-        if y_bot >= CHAT_AREA_BOT:   # fully above the input bar → draw
+        if y_ctr >= CHAT_AREA_BOT:   # centre above input bar → draw (may clip slightly)
             draw_message_box(win, text, y_ctr, role,
                              accent_color=accent, profile=profile)
         y -= h + msg_gap
-        last_y = y
+        last_y = y                   # always advance so dots land correctly
 
-    # ── Typing dots ──
+    # ── Typing dots (user is composing) ──
     if is_typing:
         import math as _math
         dot_y    = max(last_y + 20, CHAT_AREA_BOT + 20)
@@ -958,6 +1046,32 @@ def redraw_scene(win, history, profile, typed, is_typing,
             visual.Circle(win, radius=5,
                           pos=(-WIN_W//2 + 100 + di * 14, dot_y + dy_off),
                           fillColor=dc, lineColor=None).draw()
+
+    # ── Agent thinking dots (LLM is fetching reply) ──
+    if is_thinking:
+        import math as _math
+        dot_y = max(last_y + 20, CHAT_AREA_BOT + 28)
+        # Draw a small agent bubble shell first
+        AV_CX_AGENT = -WIN_W // 2 + AVATAR_R + 16
+        bubble_cx   = AV_CX_AGENT + AVATAR_R + AVATAR_GAP + 80
+        visual.Rect(win, width=80, height=36,
+                    pos=(bubble_cx, dot_y),
+                    fillColor="#1E2A3A", lineColor=None, opacity=0.85).draw()
+        visual.Rect(win, width=4, height=36,
+                    pos=(bubble_cx - 38, dot_y),
+                    fillColor=accent, lineColor=None, opacity=0.90).draw()
+        # Animated three dots in accent colour
+        for di in range(3):
+            phase  = anim_t * 5.0 + di * 0.9
+            dy_off = _math.sin(phase) * 5
+            dot_cx = bubble_cx - 18 + di * 18
+            visual.Circle(win, radius=5,
+                          pos=(dot_cx, dot_y + dy_off),
+                          fillColor=accent, lineColor=None, opacity=0.75 + 0.25 * _math.sin(phase)).draw()
+        # Small avatar to the left of the bubble
+        draw_robot_avatar(win, AV_CX_AGENT, dot_y,
+                          accent=accent, personality=profile.get("personality", profile["name"]),
+                          size=0.55, anim_t=anim_t)
 
     # ── Scrollbar ─────────────────────────────────────────────────────────────
     SB_X   = WIN_W // 2 - 7
@@ -999,6 +1113,12 @@ def redraw_scene(win, history, profile, typed, is_typing,
     field_col  = "#1E293B" if is_typing else "#162032"
     border_col = accent    if is_typing else "#334155"
 
+    # Outer glow when user is typing
+    if is_typing:
+        visual.Rect(win, width=field_w + 12, height=54,
+                    pos=(field_x, bar_y2),
+                    fillColor=accent, lineColor=None, opacity=0.10).draw()
+
     visual.Rect(win, width=field_w, height=42,
                 pos=(field_x, bar_y2),
                 fillColor=field_col, lineColor=border_col, lineWidth=1.5).draw()
@@ -1020,13 +1140,34 @@ def redraw_scene(win, history, profile, typed, is_typing,
                         anchorHoriz="left", anchorVert="center",
                         wrapWidth=field_w - 60).draw()
 
-    btn_col = accent if typed else "#1E293B"
-    visual.Circle(win, radius=SEND_R,
-                  pos=(send_x, bar_y2),
+    _send_hover = False
+    _send_press = False
+    if mouse is not None and typed:
+        mx2, my2 = mouse.getPos()
+        _send_hover = ((mx2 - send_x)**2 + (my2 - bar_y2)**2) <= (SEND_R + 4)**2
+        _send_press = _send_hover and mouse.getPressed()[0]
+    if typed:
+        btn_col = accent
+        if _send_press:
+            btn_col = "white"
+        elif _send_hover:
+            # brighten accent on hover
+            btn_col = accent
+        send_r_draw = SEND_R - (2 if _send_press else 0)
+        if _send_hover and not _send_press:
+            visual.Circle(win, radius=SEND_R + 6,
+                          pos=(send_x, bar_y2),
+                          fillColor=accent, lineColor=None, opacity=0.25).draw()
+    else:
+        btn_col = "#1E293B"
+        send_r_draw = SEND_R
+    visual.Circle(win, radius=send_r_draw,
+                  pos=(send_x, bar_y2 + (-1 if _send_press else 0)),
                   fillColor=btn_col, lineColor=None).draw()
+    arrow_col = accent if _send_press else "white"
     visual.TextStim(win, text="↑",
-                    pos=(send_x, bar_y2 + 1),
-                    color="white", height=18, font="Arial", bold=True,
+                    pos=(send_x, bar_y2 + (0 if _send_press else 1)),
+                    color=arrow_col, height=18, font="Arial", bold=True,
                     anchorHoriz="center", anchorVert="center").draw()
 
     win.flip()
@@ -1090,7 +1231,7 @@ def _exit_btn_hit(mouse):
             abs(my - end_y) <= end_h // 2)
  
  
-def get_text_input(win, history, profile, deadline, scroll_ref=None):
+def get_text_input(win, history, profile, deadline, scroll_ref=None, reply_ready=None):
     """
     scroll_ref: 1-element list [int] so the caller can persist scroll across turns.
     scroll_ref[0] = 0  means "show newest messages" (bottom).
@@ -1116,6 +1257,8 @@ def get_text_input(win, history, profile, deadline, scroll_ref=None):
     _last_frame     = 0.0
     _mouse_was_down = False
 
+    shift_held = [False]
+
     KEY_MAP = {
         "space": " ", "comma": ",", "period": ".", "semicolon": ";",
         "colon": ":", "apostrophe": "'", "quotedbl": '"', "slash": "/",
@@ -1130,6 +1273,13 @@ def get_text_input(win, history, profile, deadline, scroll_ref=None):
         "num_0": "0", "num_1": "1", "num_2": "2", "num_3": "3",
         "num_4": "4", "num_5": "5", "num_6": "6", "num_7": "7",
         "num_8": "8", "num_9": "9",
+    }
+    SHIFT_MAP = {
+        "1":"!", "2":"@", "3":"#", "4":"$", "5":"%",
+        "6":"^", "7":"&", "8":"*", "9":"(", "0":")",
+        "minus":"_", "equal":"+", "bracketleft":"{", "bracketright":"}",
+        "backslash":"|", "semicolon":":", "apostrophe":'"',
+        "comma":"<", "period":">", "slash":"?", "grave":"~",
     }
 
     # Keys we intercept for scrolling — must NOT fall through to text input
@@ -1153,6 +1303,20 @@ def get_text_input(win, history, profile, deadline, scroll_ref=None):
             if _exit_btn_hit(mouse):
                 win.color = BG_IDLE
                 return None
+            # ── SEND circle click ──
+            if typed.strip():
+                mx_c, my_c = mouse.getPos()
+                send_x_c = WIN_W // 2 - 22 - 16
+                bar_y2_c = -WIN_H // 2 + 26
+                if ((mx_c - send_x_c)**2 + (my_c - bar_y2_c)**2) <= (22 + 4)**2:
+                    scroll_ref[0] = 0
+                    win.color = BG_FLASH
+                    redraw_scene(win, history, profile, typed, True,
+                                 time_left=deadline - time.time(), anim_t=time.time(),
+                                 scroll_offset=0, mouse=mouse)
+                    core.wait(0.10)
+                    win.color = BG_IDLE
+                    return typed.strip()
         _mouse_was_down = mouse_down
 
         # ── Mouse wheel ──
@@ -1170,13 +1334,20 @@ def get_text_input(win, history, profile, deadline, scroll_ref=None):
         # ── Keyboard ──
         keys = event.getKeys(keyList=None)
         for key in keys:
+            # Track shift state
+            if key in ("lshift", "rshift"):
+                shift_held[0] = True
+                continue
+            if key in ("lshift_r", "rshift_r"):   # key-release not standard in PsychoPy
+                shift_held[0] = False
+                continue
             if key == "return":
                 if typed.strip():
                     scroll_ref[0] = 0          # snap to bottom on send
                     win.color = BG_FLASH
                     redraw_scene(win, history, profile, typed, True,
                                  time_left=time_left, anim_t=anim_t,
-                                 scroll_offset=0)
+                                 scroll_offset=0, mouse=mouse)
                     core.wait(0.10)
                     win.color = BG_IDLE
                     return typed.strip()
@@ -1208,23 +1379,42 @@ def get_text_input(win, history, profile, deadline, scroll_ref=None):
             elif key == "end":
                 cursor = len(typed)
             elif key in KEY_MAP:
-                typed  = typed[:cursor] + KEY_MAP[key] + typed[cursor:]
+                ch = KEY_MAP[key]
+                if shift_held[0] and ch in SHIFT_MAP.values():
+                    pass   # already a shifted char from KEY_MAP
+                elif shift_held[0] and key in SHIFT_MAP:
+                    ch = SHIFT_MAP[key]
+                typed  = typed[:cursor] + ch + typed[cursor:]
                 cursor += 1
             elif len(key) == 1 and key not in SCROLL_KEYS:
-                typed  = typed[:cursor] + key + typed[cursor:]
+                ch = key.upper() if shift_held[0] else key
+                typed  = typed[:cursor] + ch + typed[cursor:]
                 cursor += 1
+
+        # Sync shift state from event queue each frame
+        try:
+            from psychopy.hardware.keyboard import Keyboard as _KB
+            pass
+        except Exception:
+            pass
+        # Simple polling fallback using event modifiers isn't available in PsychoPy
+        # — rely on lshift/rshift keys captured above
 
         new_typing = len(typed) > 0
         if new_typing != is_typing:
             win.color = BG_TYPING if new_typing else BG_IDLE
             is_typing = new_typing
 
+        # ── If a background reply just arrived, exit so run_conversation can show it ──
+        if reply_ready is not None and reply_ready.is_set():
+            return ("__REPLY_READY__", typed)
+
         # ── FPS-capped redraw ──
         now = time.time()
         if now - _last_frame >= FRAME_T:
             redraw_scene(win, history, profile, typed, is_typing,
                          time_left=time_left, anim_t=anim_t,
-                         scroll_offset=scroll_ref[0])
+                         scroll_offset=scroll_ref[0], mouse=mouse)
             _last_frame = now
         else:
             core.wait(0.001)
@@ -1233,14 +1423,36 @@ def get_text_input(win, history, profile, deadline, scroll_ref=None):
 # ─────────────────────────────────────────────────────────────
 
 def show_thinking(win, history, profile, deadline, duration=1.8, stop_event=None):
-    """Wait silently while LLM responds — no animation overhead."""
+    """Keep the screen live with thinking-dots animation while the LLM fetches a reply.
+    Guarantees at least one redraw so the user message is always visible immediately.
+    Uses a do-while pattern so a fast LLM reply never skips the display update.
+    """
+    _think_mouse = event.Mouse(win=win)
+
+    def _draw_one():
+        redraw_scene(win, history, profile, "", False,
+                     time_left=max(0, deadline - time.time()),
+                     anim_t=time.time(),
+                     scroll_offset=0,
+                     mouse=_think_mouse,
+                     is_thinking=True)
+
     if stop_event is not None:
-        while not stop_event.is_set():
+        # Always draw at least one frame before checking if already done
+        while True:
+            _draw_one()
+            core.wait(0.033)
+            if stop_event.is_set():
+                break
             if deadline - time.time() <= 0:
-                return
-            core.wait(0.05)
+                break
     else:
-        core.wait(min(duration, max(0, deadline - time.time())))
+        end_t = time.time() + min(duration, max(0, deadline - time.time()))
+        while True:
+            _draw_one()
+            core.wait(0.033)
+            if time.time() >= end_t:
+                break
 
 
 # ─────────────────────────────────────────────────────────────
@@ -1248,80 +1460,246 @@ def show_thinking(win, history, profile, deadline, duration=1.8, stop_event=None
 # ─────────────────────────────────────────────────────────────
 
 def run_conversation(win, agent, time_limit=300):
+    """Single flat loop. LLM runs in background thread; reply surfaces every frame."""
     history    = []
-    profile    = {**agent.profile, "name": agent.name}
+    profile    = {**agent.profile, "name": agent.avatar_name, "personality": agent.name}
     deadline   = time.time() + time_limit
-    scroll_ref = [0]   # shared, persists across turns
+    scroll_ref = [0]
 
     history.append(("agent", agent.greet()))
 
-    while True:
-        user_text = get_text_input(win, history, profile, deadline,
-                                   scroll_ref=scroll_ref)
+    # All mutable loop state in one dict so inner helpers can rebind freely
+    S = dict(
+        typed        = "",
+        cursor       = 0,
+        is_typing    = False,
+        last_frame   = 0.0,
+        mouse_was_dn = False,
+        shift        = False,
+        # LLM fetch
+        waiting      = False,
+        fetch_ev     = None,
+        fetch_thread = None,
+        reply_box    = [None],
+    )
 
-        if user_text == "TIME_UP":
-            show_message(win, "⏱  Time is up!\n\nThe session has ended.",
-                         duration=2.0, color="#FF4444")
-            break
-        if user_text is None:
-            break
-        if not user_text:
-            continue
+    mouse = event.Mouse(win=win)
+    mouse.clickReset()
 
-        history.append(("user", user_text))
+    KEY_MAP = {
+        "space":" ","comma":",","period":".","semicolon":";","colon":":",
+        "apostrophe":"'","quotedbl":'"',"slash":"/","backslash":"\\",
+        "minus":"-","equal":"=","bracketleft":"[","bracketright":"]","grave":"`",
+        "exclam":"!","at":"@","numbersign":"#","dollar":"$","percent":"%",
+        "asciicircum":"^","ampersand":"&","asterisk":"*","parenleft":"(",
+        "parenright":")","underscore":"_","plus":"+","braceleft":"{",
+        "braceright":"}","bar":"|","less":"<","greater":">","question":"?",
+        "asciitilde":"~","num_decimal":".",
+        "num_0":"0","num_1":"1","num_2":"2","num_3":"3","num_4":"4",
+        "num_5":"5","num_6":"6","num_7":"7","num_8":"8","num_9":"9",
+    }
+    SHIFT_MAP = {
+        "1":"!","2":"@","3":"#","4":"$","5":"%","6":"^","7":"&","8":"*",
+        "9":"(","0":")","minus":"_","equal":"+","bracketleft":"{",
+        "bracketright":"}","backslash":"|","semicolon":":","apostrophe":'"',
+        "comma":"<","period":">","slash":"?","grave":"~",
+    }
+    SCROLL_KEYS = {"up","down","pageup","pagedown"}
 
-        reply_box  = [None]
-        stop_event = threading.Event()
+    def _clamp():
+        S["scroll_ref_alias"] = scroll_ref  # just use scroll_ref directly
+        max_off = max(0, len(history) - 6)
+        scroll_ref[0] = max(0, min(scroll_ref[0], max_off))
 
-        def fetch_reply():
-            reply_box[0] = agent.respond_llm(user_text)
-            stop_event.set()
-
-        t = threading.Thread(target=fetch_reply, daemon=True)
+    def _do_send():
+        msg = S["typed"].strip()
+        if not msg or S["waiting"]:
+            return
+        history.append(("user", msg))
+        S["typed"] = ""; S["cursor"] = 0; S["is_typing"] = False
+        scroll_ref[0] = 0
+        win.color = BG_FLASH
+        redraw_scene(win, history, profile, "", False,
+                     time_left=max(0, deadline-time.time()), anim_t=time.time(),
+                     scroll_offset=0, mouse=mouse, is_thinking=False)
+        core.wait(0.08)
+        win.color = BG_IDLE
+        # kick off LLM
+        S["reply_box"][0] = None
+        ev = threading.Event()
+        S["fetch_ev"] = ev
+        captured_msg = msg
+        def _fetch():
+            S["reply_box"][0] = agent.respond_llm(captured_msg)
+            ev.set()
+        t = threading.Thread(target=_fetch, daemon=True)
+        S["fetch_thread"] = t
+        S["waiting"] = True
         t.start()
 
-        show_thinking(win, history, profile, deadline, stop_event=stop_event)
-        t.join()
+    while True:
+        time_left = deadline - time.time()
+        if time_left <= 0:
+            show_message(win, "\u23f1  Time is up!\n\nThe session has ended.",
+                         duration=2.0, color="#FF4444")
+            break
 
-        reply = reply_box[0] or ""
-        history.append(("agent", reply))
-        scroll_ref[0] = 0   # snap to newest after reply arrives
+        anim_t = time.time()
+
+        # ── Reply arrived? ──
+        if S["waiting"] and S["fetch_ev"] is not None and S["fetch_ev"].is_set():
+            S["fetch_thread"].join()
+            reply = S["reply_box"][0] or ""
+            history.append(("agent", reply))
+            scroll_ref[0] = 0
+            S["waiting"] = False; S["fetch_ev"] = None; S["fetch_thread"] = None
+            redraw_scene(win, history, profile, S["typed"], S["is_typing"],
+                         time_left=time_left, anim_t=anim_t,
+                         scroll_offset=0, mouse=mouse, is_thinking=False)
+            S["last_frame"] = time.time()
+            event.clearEvents()   # discard keys buffered during LLM thinking phase
+            continue
+
+        # ── Mouse ──
+        mouse_down = mouse.getPressed()[0]
+        if mouse_down and not S["mouse_was_dn"]:
+            mx_m, my_m = mouse.getPos()
+            # END button
+            bar_y_hdr = WIN_H // 2 - 32
+            if (abs(mx_m - EXIT_BTN_X) <= EXIT_BTN_W // 2 and
+                    abs(my_m - bar_y_hdr) <= EXIT_BTN_H // 2):
+                if S["fetch_thread"] is not None:
+                    S["fetch_thread"].join(timeout=3)
+                win.color = BG_IDLE
+                break
+            # SEND circle
+            send_cx = WIN_W // 2 - 22 - 16
+            bar_y2  = -WIN_H // 2 + 26
+            if ((mx_m-send_cx)**2 + (my_m-bar_y2)**2) <= (26)**2:
+                _do_send()
+        S["mouse_was_dn"] = mouse_down
+
+        # Mouse wheel
+        wheel = mouse.getWheelRel()
+        wy = wheel[1] if hasattr(wheel,"__len__") else wheel
+        if wy > 0:   scroll_ref[0] += max(1,int(wy)); _clamp()
+        elif wy < 0: scroll_ref[0] = max(0, scroll_ref[0]+min(-1,int(wy)))
+
+        # ── Keyboard ──
+        for key in event.getKeys(keyList=None):
+            if key in ("lshift","rshift"):   S["shift"] = not S["shift"]; continue
+            if key in ("lshift_r","rshift_r"): continue  # not real key names — kept for safety
+            if key == "return":
+                _do_send()
+            elif key == "up":    scroll_ref[0] += 1; _clamp()
+            elif key == "down":  scroll_ref[0] = max(0, scroll_ref[0]-1)
+            elif key == "pageup":   scroll_ref[0] += 3; _clamp()
+            elif key == "pagedown": scroll_ref[0] = max(0, scroll_ref[0]-3)
+            elif key == "backspace":
+                if S["cursor"] > 0:
+                    S["typed"] = S["typed"][:S["cursor"]-1] + S["typed"][S["cursor"]:]
+                    S["cursor"] -= 1
+            elif key == "delete":
+                if S["cursor"] < len(S["typed"]):
+                    S["typed"] = S["typed"][:S["cursor"]] + S["typed"][S["cursor"]+1:]
+            elif key == "left":  S["cursor"] = max(0, S["cursor"]-1)
+            elif key == "right": S["cursor"] = min(len(S["typed"]), S["cursor"]+1)
+            elif key == "home":  S["cursor"] = 0
+            elif key == "end":   S["cursor"] = len(S["typed"])
+            elif key in KEY_MAP:
+                ch = SHIFT_MAP.get(key, KEY_MAP[key]) if S["shift"] else KEY_MAP[key]
+                S["typed"] = S["typed"][:S["cursor"]] + ch + S["typed"][S["cursor"]:]
+                S["cursor"] += 1
+            elif len(key) == 1 and key not in SCROLL_KEYS:
+                ch = key.upper() if S["shift"] else key
+                S["typed"] = S["typed"][:S["cursor"]] + ch + S["typed"][S["cursor"]:]
+                S["cursor"] += 1
+
+        new_typing = len(S["typed"]) > 0
+        if new_typing != S["is_typing"]:
+            win.color = BG_TYPING if new_typing else BG_IDLE
+            S["is_typing"] = new_typing
+
+        # ── FPS-capped redraw ──
+        now = time.time()
+        if now - S["last_frame"] >= FRAME_T:
+            redraw_scene(win, history, profile, S["typed"], S["is_typing"],
+                         time_left=time_left, anim_t=anim_t,
+                         scroll_offset=scroll_ref[0], mouse=mouse,
+                         is_thinking=S["waiting"])
+            S["last_frame"] = now
+        else:
+            core.wait(0.001)
 
     win.color = BG_IDLE
     show_message(win, agent.farewell(), duration=3.0,
                  color=agent.profile["color"])
     return history
-
 # ─────────────────────────────────────────────────────────────
 # 15. SAVE CHAT TO CSV
 # ─────────────────────────────────────────────────────────────
 
-def save_chat_csv(chat_log, participant_id, agent_name, avatar_gender="unknown"):
+def save_chat_csv(chat_log, participant_id, agent_name, avatar_gender="unknown", mode="all"):
     """
-    Append conversation to a single CSV file per participant in a 'data' folder.
-    All conversations for a participant are saved in one file.
+    Save conversation CSV.
+    Filename: {pid}_{mode}_{personality}.csv
+      mode="all"          → {pid}_all_{personality}.csv          (Meet Everyone)
+      mode="interact_one" → {pid}_interact_one_{personality}.csv (Free-pick)
+    If the file is locked (e.g. open in Excel), automatically falls back to a
+    timestamped filename so no data is ever lost.
     """
     script_dir = os.path.dirname(os.path.abspath(__file__))
     data_dir   = os.path.join(script_dir, "data")
     os.makedirs(data_dir, exist_ok=True)
 
-    pid      = participant_id.strip() or "unknown"
-    filename = os.path.join(data_dir, f"chat_{pid}.csv")
+    pid        = participant_id.strip() or "unknown"
+    timestamp  = datetime.now().strftime("%Y%m%d_%H%M%S")
+    avatar_nm  = AVATAR_NAMES.get((agent_name, avatar_gender),
+                                   agent_name.replace(" & ", "_").replace(" ", "_"))
 
-    # Write header only if the file doesn't exist yet
-    file_exists = os.path.isfile(filename)
-    timestamp   = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # Filename:
+    #   mode="all"          → {pid}_{avatar_name}.csv          e.g. 2_anaya.csv
+    #   mode="interact_one" → {pid}_{avatar_name}_feedback.csv e.g. 2_anaya_feedback.csv
+    avatar_slug = avatar_nm.lower()
 
-    with open(filename, "a", newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        if not file_exists:
-            writer.writerow(["turn", "role", "message", "participant_id",
-                             "agent", "avatar_gender", "session_timestamp"])
-        for i, (role, text) in enumerate(chat_log):
-            writer.writerow([i + 1, role, text, pid, agent_name,
-                             avatar_gender, timestamp])
+    if mode == "interact_one":
+        base_name = f"{pid}_{avatar_slug}_feedback"
+    else:
+        base_name = f"{pid}_{avatar_slug}"
 
-    return filename
+    primary_filename  = os.path.join(data_dir, f"{base_name}.csv")
+    fallback_filename = os.path.join(data_dir, f"{base_name}_backup.csv")
+
+    for filename in (primary_filename, fallback_filename):
+        file_exists = os.path.isfile(filename)
+        try:
+            with open(filename, "a", newline="", encoding="utf-8") as f:
+                writer = csv.writer(f)
+                if not file_exists:
+                    writer.writerow(["turn", "role", "message", "participant_id",
+                                     "avatar_name", "avatar_gender", "session_timestamp"])
+                for i, (role, text) in enumerate(chat_log):
+                    writer.writerow([i + 1, role, text, pid, avatar_nm,
+                                     avatar_gender, timestamp])
+            return filename          # success — return whichever file was used
+        except PermissionError:
+            if filename == primary_filename:
+                print(f"⚠ {filename} is locked (open in another program). "
+                      f"Saving to fallback: {fallback_filename}")
+                continue             # try fallback
+            else:
+                # Both files locked — last resort: Desktop
+                desktop = os.path.join(os.path.expanduser("~"), "Desktop")
+                last_resort = os.path.join(desktop, f"{base_name}_backup.csv")
+                with open(last_resort, "w", newline="", encoding="utf-8") as f:
+                    writer = csv.writer(f)
+                    writer.writerow(["turn", "role", "message", "participant_id",
+                                     "avatar_name", "avatar_gender", "session_timestamp"])
+                    for i, (role, text) in enumerate(chat_log):
+                        writer.writerow([i + 1, role, text, pid, avatar_nm,
+                                         avatar_gender, timestamp])
+                print(f"⚠ Saved to Desktop as last resort: {last_resort}")
+                return last_resort
 
 
 
@@ -1329,27 +1707,35 @@ def save_chat_csv(chat_log, participant_id, agent_name, avatar_gender="unknown")
 # 15b. IN-WINDOW PERSONALITY SELECTION SCREEN
 # ─────────────────────────────────────────────────────────────
 
-def show_personality_selection(win):
+def show_personality_selection(win, gender=None, preset_selection=None):
     """
     Full-screen in-window screen to pick a personality agent.
+    Shows avatar photo + name cards matching the given gender.
+    If preset_selection is given, that card is pre-highlighted and
+    selection is locked (Meet Everyone mode) — press any key or click to continue.
     Returns the chosen personality name string.
     """
     personalities = list(_PERSONALITY_BASE.keys())
-    # Accent colours per personality (for card highlight)
-    _pal_colors = {p: _PERSONALITY_BASE[p]["color"] for p in personalities}
+    _pal_colors   = {p: _PERSONALITY_BASE[p]["color"] for p in personalities}
 
-    CARD_W, CARD_H = 200, 72
-    GAP            = 18
+    # Use provided gender or fall back to globally stored choice
+    gender_now = gender if gender else _AGENT_GENDER.get("choice", "female")
+
+    # Taller cards to accommodate avatar photo above name
+    CARD_W, CARD_H = 190, 240
+    AV_R           = 52          # avatar circle radius inside card
+    GAP            = 24
     total_w        = len(personalities) * CARD_W + (len(personalities) - 1) * GAP
     start_x        = -total_w // 2 + CARD_W // 2
-    CARD_Y         = 0
+    CARD_Y         = 10          # slight upward shift to give confirm button room
 
     mouse      = event.Mouse(win=win)
     mouse.clickReset()
-    selected   = personalities[0]
+    selected   = preset_selection if preset_selection in personalities else personalities[0]
+    locked     = preset_selection is not None   # True = Meet Everyone mode, no free picking
     _prev_down = False
 
-    CONFIRM_W, CONFIRM_H = 240, 50
+    CONFIRM_W, CONFIRM_H = 260, 52
     CONFIRM_Y = -WIN_H // 2 + 68
 
     def _card_cx(i):
@@ -1362,7 +1748,7 @@ def show_personality_selection(win):
     while True:
         win.clearBuffer()
 
-        # Background
+        # ── Background ──
         visual.Rect(win, width=WIN_W, height=WIN_H, pos=(0, 0),
                     fillColor="#060A14", lineColor=None).draw()
         for row in range(-WIN_H // 2, WIN_H // 2, 28):
@@ -1373,7 +1759,7 @@ def show_personality_selection(win):
                     pos=(0, WIN_H // 2 - 2),
                     fillColor="#2A6AFF", lineColor=None).draw()
 
-        # Title
+        # ── Title ──
         visual.Rect(win, width=460, height=44,
                     pos=(0, WIN_H // 2 - 52),
                     fillColor="#0D1830", lineColor="#2A4A8A",
@@ -1388,82 +1774,129 @@ def show_personality_selection(win):
                         color="#2A4060", height=12, font="Arial",
                         anchorHoriz="center", anchorVert="center").draw()
 
-        # Personality cards
+        # ── Personality cards with avatar photos ──
         for i, p in enumerate(personalities):
-            cx      = _card_cx(i)
-            hl      = (p == selected)
-            col     = _pal_colors[p]
-            bg_col  = "#0F1E38" if hl else "#0A1428"
-            brd_col = col       if hl else "#1E2E48"
-            brd_w   = 3.0       if hl else 1.5
+            cx         = _card_cx(i)
+            hl         = (p == selected)
+            col        = _pal_colors[p]
+            bg_col     = "#0F1E38" if hl else "#0A1428"
+            brd_col    = col       if hl else "#1E2E48"
+            brd_w      = 3.0       if hl else 1.5
+            card_label = AVATAR_NAMES.get((p, gender_now), p)
 
-            # Glow
+            # Glow behind selected card
             if hl:
-                for gr, go in [(8, 0.06), (4, 0.12)]:
+                for gr, go in [(10, 0.05), (5, 0.11)]:
                     visual.Rect(win, width=CARD_W + gr*2, height=CARD_H + gr*2,
                                 pos=(cx, CARD_Y),
                                 fillColor=col, lineColor=None, opacity=go).draw()
+
             # Shadow
             visual.Rect(win, width=CARD_W + 4, height=CARD_H + 4,
                         pos=(cx + 4, CARD_Y - 4),
-                        fillColor="#000000", lineColor=None, opacity=0.25).draw()
+                        fillColor="#000000", lineColor=None, opacity=0.28).draw()
+
             # Card body
             visual.Rect(win, width=CARD_W, height=CARD_H,
                         pos=(cx, CARD_Y),
                         fillColor=bg_col, lineColor=brd_col,
                         lineWidth=brd_w).draw()
-            # Colour accent bar on left
-            visual.Rect(win, width=5, height=CARD_H,
-                        pos=(cx - CARD_W // 2 + 3, CARD_Y),
-                        fillColor=col, lineColor=None).draw()
-            # Label
+
+            # Colour header strip at top of card
+            strip_y = CARD_Y + CARD_H // 2 - 16
+            visual.Rect(win, width=CARD_W, height=32,
+                        pos=(cx, strip_y),
+                        fillColor=col if hl else "#1A2A44",
+                        lineColor=None, opacity=0.85 if hl else 0.55).draw()
+
+            # Avatar photo (circular, centred in card)
+            av_cy     = CARD_Y + 20
+            img_path  = AGENT_IMAGES.get((p, gender_now),
+                            AGENT_IMAGES[("Warm & Supportive", gender_now)])
+            try:
+                img_stim = visual.ImageStim(
+                    win, image=img_path,
+                    pos=(cx, av_cy),
+                    size=(AV_R * 2, AV_R * 2),
+                    mask="circle", interpolate=True,
+                )
+                img_stim.draw()
+            except Exception:
+                # Fallback circle if image missing
+                visual.Circle(win, radius=AV_R, pos=(cx, av_cy),
+                              fillColor=col, lineColor=None, opacity=0.40).draw()
+            # Avatar ring
+            ring_col = col if hl else "#2A3A58"
+            visual.Circle(win, radius=AV_R + 3, pos=(cx, av_cy),
+                          fillColor=None, lineColor=ring_col,
+                          lineWidth=2.5 if hl else 1.5).draw()
+
+            # Name label below avatar
+            name_y  = CARD_Y - CARD_H // 2 + 38
             lbl_col = col if hl else "#8899BB"
-            visual.TextStim(win, text=p,
-                            pos=(cx + 6, CARD_Y),
-                            color=lbl_col, height=15, font="Arial", bold=hl,
-                            wrapWidth=CARD_W - 20,
+            visual.TextStim(win, text=card_label,
+                            pos=(cx, name_y),
+                            color=lbl_col, height=16, font="Arial", bold=hl,
+                            wrapWidth=CARD_W - 16,
                             anchorHoriz="center", anchorVert="center").draw()
 
-        # Confirm button
-        col_hi  = _pal_colors[selected]
-        visual.Rect(win, width=CONFIRM_W + 12, height=CONFIRM_H + 12,
+        # ── Confirm button ──
+        selected_avatar = AVATAR_NAMES.get((selected, gender_now), selected.split()[0])
+        col_hi = _pal_colors[selected]
+        mx_c, my_c  = mouse.getPos()
+        _cb_hover   = (abs(mx_c) <= CONFIRM_W // 2 and abs(my_c - CONFIRM_Y) <= CONFIRM_H // 2)
+        _cb_press   = _cb_hover and mouse.getPressed()[0]
+        _cb_scale   = -2 if _cb_press else (2 if _cb_hover else 0)
+        _cb_dy      = -1 if _cb_press else 0
+        _cb_fill    = "#1E3A60" if _cb_press else ("#162E54" if _cb_hover else "#0F1E38")
+        _cb_glow_op = 0.25 if _cb_hover else 0.12
+        _cb_bw      = 3.0 if _cb_hover else 2.0
+        _cb_tcol    = col_hi if _cb_hover else "white"
+        visual.Rect(win, width=CONFIRM_W + 16, height=CONFIRM_H + 16,
                     pos=(0, CONFIRM_Y),
-                    fillColor=col_hi, lineColor=None, opacity=0.12).draw()
-        visual.Rect(win, width=CONFIRM_W, height=CONFIRM_H,
-                    pos=(0, CONFIRM_Y),
-                    fillColor="#0F1E38", lineColor=col_hi, lineWidth=2.0).draw()
-        visual.TextStim(win, text=f"Chat with {selected.split()[0]}   →",
-                        pos=(0, CONFIRM_Y),
-                        color="white", height=17, font="Arial", bold=True,
+                    fillColor=col_hi, lineColor=None, opacity=_cb_glow_op).draw()
+        visual.Rect(win, width=CONFIRM_W + _cb_scale, height=CONFIRM_H + _cb_scale,
+                    pos=(0, CONFIRM_Y + _cb_dy),
+                    fillColor=_cb_fill, lineColor=col_hi, lineWidth=_cb_bw).draw()
+        # Shine strip
+        visual.Rect(win, width=CONFIRM_W - 8, height=CONFIRM_H // 3,
+                    pos=(0, CONFIRM_Y + _cb_dy + CONFIRM_H // 4),
+                    fillColor="#FFFFFF", lineColor=None, opacity=0.04 if not _cb_hover else 0.09).draw()
+        btn_label = f"Next →" if locked else f"Chat with {selected_avatar}   →"
+        visual.TextStim(win, text=btn_label,
+                        pos=(0, CONFIRM_Y + _cb_dy),
+                        color=_cb_tcol, height=17, font="Arial", bold=True,
                         anchorHoriz="center", anchorVert="center").draw()
 
         win.flip()
 
-        # Keyboard: number keys 1-4, arrow keys, enter
-        keys = event.getKeys(keyList=["1","2","3","4","left","right","return","escape"])
+        # ── Keyboard ──
+        keys = event.getKeys(keyList=["1","2","3","4","left","right","return","escape","space"])
         for k in keys:
             if k == "escape":
                 core.quit()
-            elif k == "return":
+            elif k in ("return", "space"):
                 return selected
-            elif k in ("1","2","3","4"):
-                idx = int(k) - 1
-                if idx < len(personalities):
-                    selected = personalities[idx]
-            elif k == "left":
-                idx = personalities.index(selected)
-                selected = personalities[(idx - 1) % len(personalities)]
-            elif k == "right":
-                idx = personalities.index(selected)
-                selected = personalities[(idx + 1) % len(personalities)]
+            elif not locked:
+                if k in ("1","2","3","4"):
+                    idx = int(k) - 1
+                    if idx < len(personalities):
+                        selected = personalities[idx]
+                elif k == "left":
+                    idx = personalities.index(selected)
+                    selected = personalities[(idx - 1) % len(personalities)]
+                elif k == "right":
+                    idx = personalities.index(selected)
+                    selected = personalities[(idx + 1) % len(personalities)]
 
-        # Mouse
+        # ── Mouse ──
         down = mouse.getPressed()[0]
         if down and not _prev_down:
             mx, my = mouse.getPos()
-            for i, p in enumerate(personalities):
-                if _card_hit(mx, my, i):
-                    selected = p
+            if not locked:
+                for i, p in enumerate(personalities):
+                    if _card_hit(mx, my, i):
+                        selected = p
             if (abs(mx) <= CONFIRM_W // 2 and
                     abs(my - CONFIRM_Y) <= CONFIRM_H // 2):
                 return selected
@@ -1496,6 +1929,8 @@ def show_session_end_screen(win, accent):
 
     while True:
         win.clearBuffer()
+        mx, my = mouse.getPos()
+        down   = mouse.getPressed()[0]
 
         # Dim background
         visual.Rect(win, width=WIN_W, height=WIN_H, pos=(0, 0),
@@ -1526,29 +1961,53 @@ def show_session_end_screen(win, accent):
                         color="#8899BB", height=16, font="Arial",
                         anchorHoriz="center", anchorVert="center").draw()
 
+        # ── Hover / press states ──
+        _lh = _hit(mx, my, LEFT_X)
+        _rh = _hit(mx, my, RIGHT_X)
+        _lp = _lh and down
+        _rp = _rh and down
+
         # ── "Talk to Another Agent" button (left) ──
-        visual.Rect(win, width=BTN_W + 10, height=BTN_H + 10,
+        _l_fill  = "#1F5030" if _lp  else ("#195E38" if _lh  else "#0F2A1A")
+        _l_bw    = 3.0       if _lh  else 2.0
+        _l_scale = -2        if _lp  else (2 if _lh else 0)
+        _l_dy    = -1        if _lp  else 0
+        _l_tcol  = "#88FFCC" if _lh  else "#4CAF50"
+        _l_gop   = 0.26      if _lh  else 0.12
+        visual.Rect(win, width=BTN_W + 16, height=BTN_H + 16,
                     pos=(LEFT_X, BTN_Y),
-                    fillColor=accent, lineColor=None, opacity=0.12).draw()
-        visual.Rect(win, width=BTN_W, height=BTN_H,
-                    pos=(LEFT_X, BTN_Y),
-                    fillColor="#0F2A1A", lineColor="#4CAF50",
-                    lineWidth=2.0).draw()
+                    fillColor="#4CAF50", lineColor=None, opacity=_l_gop).draw()
+        visual.Rect(win, width=BTN_W + _l_scale, height=BTN_H + _l_scale,
+                    pos=(LEFT_X, BTN_Y + _l_dy),
+                    fillColor=_l_fill, lineColor="#4CAF50", lineWidth=_l_bw).draw()
+        visual.Rect(win, width=BTN_W - 8, height=BTN_H // 3,
+                    pos=(LEFT_X, BTN_Y + _l_dy + BTN_H // 4),
+                    fillColor="#FFFFFF", lineColor=None, opacity=0.04 if not _lh else 0.09).draw()
         visual.TextStim(win, text="↩  Chat with Someone Else",
-                        pos=(LEFT_X, BTN_Y),
-                        color="#4CAF50", height=15, font="Arial", bold=True,
+                        pos=(LEFT_X, BTN_Y + _l_dy),
+                        color=_l_tcol, height=15, font="Arial", bold=True,
                         anchorHoriz="center", anchorVert="center").draw()
 
         # ── "End Session" button (right) ──
-        visual.Rect(win, width=BTN_W, height=BTN_H,
+        _r_fill  = "#4A0808" if _rp  else ("#3A1010" if _rh  else "#1A0A0A")
+        _r_bw    = 3.0       if _rh  else 2.0
+        _r_scale = -2        if _rp  else (2 if _rh else 0)
+        _r_dy    = -1        if _rp  else 0
+        _r_tcol  = "#FFFFFF" if _rp  else ("#FF8888" if _rh else "#FF5555")
+        _r_gop   = 0.26      if _rh  else 0.10
+        visual.Rect(win, width=BTN_W + 16, height=BTN_H + 16,
                     pos=(RIGHT_X, BTN_Y),
-                    fillColor="#1A0A0A", lineColor="#CC3333",
-                    lineWidth=2.0).draw()
+                    fillColor="#CC3333", lineColor=None, opacity=_r_gop).draw()
+        visual.Rect(win, width=BTN_W + _r_scale, height=BTN_H + _r_scale,
+                    pos=(RIGHT_X, BTN_Y + _r_dy),
+                    fillColor=_r_fill, lineColor="#CC3333", lineWidth=_r_bw).draw()
+        visual.Rect(win, width=BTN_W - 8, height=BTN_H // 3,
+                    pos=(RIGHT_X, BTN_Y + _r_dy + BTN_H // 4),
+                    fillColor="#FFFFFF", lineColor=None, opacity=0.04 if not _rh else 0.09).draw()
         visual.TextStim(win, text="✕  End Session",
-                        pos=(RIGHT_X, BTN_Y),
-                        color="#FF5555", height=15, font="Arial", bold=True,
+                        pos=(RIGHT_X, BTN_Y + _r_dy),
+                        color=_r_tcol, height=15, font="Arial", bold=True,
                         anchorHoriz="center", anchorVert="center").draw()
-
 
         win.flip()
 
@@ -1559,9 +2018,7 @@ def show_session_end_screen(win, accent):
             elif k in ("e", "escape"):
                 return False
 
-        down = mouse.getPressed()[0]
         if down and not _prev_down:
-            mx, my = mouse.getPos()
             if _hit(mx, my, LEFT_X):
                 return True
             if _hit(mx, my, RIGHT_X):
@@ -1574,6 +2031,91 @@ def show_session_end_screen(win, accent):
 # ─────────────────────────────────────────────────────────────
 
 # Human-readable display names — no "agent" anywhere
+
+def show_avatar_confirm(win, personality, gender):
+    """
+    Pre-conversation screen (Image 1 style).
+    Shows avatar photo, "You are about to chat with [name].",
+    and "Press any key or click to begin". No personality label shown.
+    """
+    avatar_name = AVATAR_NAMES.get((personality, gender),
+                                    "Alex" if gender == "male" else "Sara")
+    accent      = _PERSONALITY_BASE[personality]["color"]
+
+    # Panel dimensions — centred, matching Image 1 proportions
+    PANEL_W, PANEL_H = 640, 310
+    PANEL_Y          = 10
+    AV_R             = 34    # avatar circle radius (small, like Image 1)
+    AV_Y             = PANEL_Y + PANEL_H // 2 - AV_R - 20   # near top of panel
+
+    img_path = AGENT_IMAGES.get((personality, gender),
+                   AGENT_IMAGES[("Warm & Supportive", gender)])
+
+    mouse      = event.Mouse(win=win)
+    mouse.clickReset()
+    _prev_down = False
+
+    while True:
+        win.clearBuffer()
+
+        # ── Full dark background ──
+        visual.Rect(win, width=WIN_W, height=WIN_H, pos=(0, 0),
+                    fillColor="#060A14", lineColor=None).draw()
+
+        # ── Panel with accent border (like Image 1) ──
+        visual.Rect(win, width=PANEL_W, height=PANEL_H,
+                    pos=(0, PANEL_Y),
+                    fillColor="#0B1222", lineColor=accent,
+                    lineWidth=2.0).draw()
+
+        # ── Avatar photo — circular, centred at top of panel ──
+        img_stim = visual.ImageStim(win, image=img_path,
+                                    pos=(0, AV_Y),
+                                    size=(AV_R * 2, AV_R * 2),
+                                    mask="circle", interpolate=True)
+        img_stim.draw()
+        # White ring around avatar (matches Image 1)
+        visual.Circle(win, radius=AV_R + 3, pos=(0, AV_Y),
+                      fillColor=None, lineColor="white", lineWidth=2.5).draw()
+
+        # ── "You are about to chat with [name]." ──
+        visual.TextStim(win,
+            text=f"You are about to chat with {avatar_name}.",
+            pos=(0, PANEL_Y + 30),
+            color="white", height=22, font="Arial", bold=True,
+            anchorHoriz="center", anchorVert="center").draw()
+
+        # ── Instruction line ──
+        visual.TextStim(win,
+            text="Respond naturally, as you would in a real conversation.",
+            pos=(0, PANEL_Y - 22),
+            color="#94A3B8", height=16, font="Arial", bold=True,
+            wrapWidth=560,
+            anchorHoriz="center", anchorVert="center").draw()
+
+        # ── "Press any key or click to begin" ──
+        visual.TextStim(win,
+            text="Press any key or click to begin",
+            pos=(0, PANEL_Y - PANEL_H // 2 + 28),
+            color="#E2E8F0", height=14, font="Arial",
+            anchorHoriz="center", anchorVert="center").draw()
+
+        win.flip()
+
+        # ── Input handling ──
+        keys = event.getKeys()
+        if keys and "escape" not in keys:
+            return
+        if "escape" in keys:
+            core.quit()
+
+        down = mouse.getPressed()[0]
+        if down and not _prev_down:
+            return
+        _prev_down = down
+        core.wait(0.016)
+
+
 _PERSONALITY_LABELS = {
     "Warm & Supportive":     "warm and supportive",
     "Confident & Efficient": "confident and efficient",
@@ -1616,7 +2158,7 @@ def show_pre_conversation_popup(win, personality, avatar_name, accent):
         anchorHoriz="center", anchorVert="center").draw()
 
     visual.TextStim(win,
-        text=f"{avatar_name} has a {label} personality.\nRespond naturally, as you would in a real conversation.",
+        text="Respond naturally, as you would in a real conversation.",
         pos=(0, -30),
         color="#94A3B8", height=16, font="Arial",
         wrapWidth=560,
@@ -1625,7 +2167,7 @@ def show_pre_conversation_popup(win, personality, avatar_name, accent):
     visual.TextStim(win,
         text="Press any key or click to begin",
         pos=(0, -118),
-        color="#334155", height=13, font="Arial",
+        color="#E2E8F0", height=15, font="Arial", bold=True,
         anchorHoriz="center", anchorVert="center").draw()
 
     win.flip()
@@ -1667,14 +2209,14 @@ def show_thankyou_screen(win, avatar_name, accent):
                     color="white", height=28, font="Arial", bold=True,
                     anchorHoriz="center", anchorVert="center").draw()
     visual.TextStim(win,
-        text=f"Thank you for your time.\n Session hs been ended",
+        text=f"Thank you for your time.\n Session has been ended",
         pos=(0, -5),
         color="#94A3B8", height=16, font="Arial",
         wrapWidth=500,
         anchorHoriz="center", anchorVert="center").draw()
     visual.TextStim(win, text="Continuing in a moment…",
                     pos=(0, -70),
-                    color="#334155", height=13, font="Arial",
+                    color="#334155", height=13, font="Arial", bold = True,
                     anchorHoriz="center", anchorVert="center").draw()
 
     win.flip()
@@ -1710,6 +2252,9 @@ def show_mode_selection(win):
 
     while True:
         win.clearBuffer()
+        mx, my = mouse.getPos()
+        down   = mouse.getPressed()[0]
+
         visual.Rect(win, width=WIN_W, height=WIN_H, pos=(0, 0),
                     fillColor="#060A14", lineColor=None).draw()
         for row in range(-WIN_H//2, WIN_H//2, 28):
@@ -1734,33 +2279,63 @@ def show_mode_selection(win):
             color="#4A6080", height=14, font="Arial",
             anchorHoriz="center", anchorVert="center").draw()
 
+        # ── Hover / press state helpers ──
+        _left_hover  = _hit(mx, my, LEFT_X)
+        _right_hover = _hit(mx, my, RIGHT_X)
+        _left_press  = _left_hover  and down
+        _right_press = _right_hover and down
+
         # ── "Meet Everyone" button ──
-        visual.Rect(win, width=BTN_W + 10, height=BTN_H + 10,
+        _l_glow_op = 0.28 if _left_hover  else 0.10
+        _l_fill    = "#1A3A7A" if _left_press  else ("#1650CC" if _left_hover  else "#0D1830")
+        _l_bw      = 3.0       if _left_hover  else 2.0
+        _l_scale   = -2        if _left_press  else (2 if _left_hover else 0)
+        _l_dy      = -1        if _left_press  else 0
+        _l_tcol    = "#88AAFF" if _left_hover  else "white"
+        _l_stcol   = "#6A8ACC" if _left_hover  else "#4A6080"
+        visual.Rect(win, width=BTN_W + 16, height=BTN_H + 16,
                     pos=(LEFT_X, BTN_Y),
-                    fillColor="#2A6AFF", lineColor=None, opacity=0.10).draw()
-        visual.Rect(win, width=BTN_W, height=BTN_H,
-                    pos=(LEFT_X, BTN_Y),
-                    fillColor="#0D1830", lineColor="#2A6AFF", lineWidth=2.0).draw()
+                    fillColor="#2A6AFF", lineColor=None, opacity=_l_glow_op).draw()
+        visual.Rect(win, width=BTN_W + _l_scale, height=BTN_H + _l_scale,
+                    pos=(LEFT_X, BTN_Y + _l_dy),
+                    fillColor=_l_fill, lineColor="#2A6AFF", lineWidth=_l_bw).draw()
+        # Inner shine strip
+        visual.Rect(win, width=BTN_W - 8, height=BTN_H // 3,
+                    pos=(LEFT_X, BTN_Y + _l_dy + BTN_H // 4),
+                    fillColor="#FFFFFF", lineColor=None, opacity=0.04 if not _left_hover else 0.09).draw()
         visual.TextStim(win, text="Meet Everyone",
-                        pos=(LEFT_X, BTN_Y + 12),
-                        color="white", height=18, font="Arial", bold=True,
+                        pos=(LEFT_X, BTN_Y + 12 + _l_dy),
+                        color=_l_tcol, height=18, font="Arial", bold=True,
                         anchorHoriz="center", anchorVert="center").draw()
         visual.TextStim(win, text="Chat with all 4 people in order",
-                        pos=(LEFT_X, BTN_Y - 14),
-                        color="#4A6080", height=12, font="Arial",
+                        pos=(LEFT_X, BTN_Y - 14 + _l_dy),
+                        color=_l_stcol, height=12, font="Arial",
                         anchorHoriz="center", anchorVert="center").draw()
 
         # ── "Choose Someone" button ──
-        visual.Rect(win, width=BTN_W, height=BTN_H,
+        _r_glow_op = 0.28 if _right_hover else 0.10
+        _r_fill    = "#1A4A28" if _right_press else ("#166A38" if _right_hover else "#0D2010")
+        _r_bw      = 3.0       if _right_hover else 2.0
+        _r_scale   = -2        if _right_press else (2 if _right_hover else 0)
+        _r_dy      = -1        if _right_press else 0
+        _r_tcol    = "#88FFBB" if _right_hover else "white"
+        _r_stcol   = "#4A9070" if _right_hover else "#4A6080"
+        visual.Rect(win, width=BTN_W + 16, height=BTN_H + 16,
                     pos=(RIGHT_X, BTN_Y),
-                    fillColor="#0D2010", lineColor="#22C55E", lineWidth=2.0).draw()
+                    fillColor="#22C55E", lineColor=None, opacity=_r_glow_op).draw()
+        visual.Rect(win, width=BTN_W + _r_scale, height=BTN_H + _r_scale,
+                    pos=(RIGHT_X, BTN_Y + _r_dy),
+                    fillColor=_r_fill, lineColor="#22C55E", lineWidth=_r_bw).draw()
+        visual.Rect(win, width=BTN_W - 8, height=BTN_H // 3,
+                    pos=(RIGHT_X, BTN_Y + _r_dy + BTN_H // 4),
+                    fillColor="#FFFFFF", lineColor=None, opacity=0.04 if not _right_hover else 0.09).draw()
         visual.TextStim(win, text="Choose Someone",
-                        pos=(RIGHT_X, BTN_Y + 12),
-                        color="white", height=18, font="Arial", bold=True,
+                        pos=(RIGHT_X, BTN_Y + 12 + _r_dy),
+                        color=_r_tcol, height=18, font="Arial", bold=True,
                         anchorHoriz="center", anchorVert="center").draw()
         visual.TextStim(win, text="Pick who you want to chat with",
-                        pos=(RIGHT_X, BTN_Y - 14),
-                        color="#4A6080", height=12, font="Arial",
+                        pos=(RIGHT_X, BTN_Y - 14 + _r_dy),
+                        color=_r_stcol, height=12, font="Arial",
                         anchorHoriz="center", anchorVert="center").draw()
 
         # Keyboard hint
@@ -1777,9 +2352,7 @@ def show_mode_selection(win):
             if k == "c":   return "one"
             if k == "escape": core.quit()
 
-        down = mouse.getPressed()[0]
         if down and not _prev_down:
-            mx, my = mouse.getPos()
             if _hit(mx, my, LEFT_X):  return "all"
             if _hit(mx, my, RIGHT_X): return "one"
         _prev_down = down
@@ -1793,9 +2366,9 @@ def show_mode_selection(win):
 def interact_all_one_by_one(win, pid, gender):
     """
     Cycle through every personality in order.
-    Before each: instruction popup.
-    After each:  thank-you screen + save CSV.
-    After all 4: combined engagement PDF is generated automatically.
+    Gender selected once upfront and reused for all 4 personalities.
+    Before each: name reveal card.
+    After each:  thank-you screen + save CSV (all in one file).
     """
     personalities = list(_PERSONALITY_BASE.keys())
 
@@ -1804,15 +2377,16 @@ def interact_all_one_by_one(win, pid, gender):
         agent  = ConversationalAgent(name=personality, gender=gender)
         accent = agent.profile["color"]
 
-        # ── Pre-conversation instruction popup ──
-        show_pre_conversation_popup(win, personality, agent.avatar_name, accent)
+        # ── Show name reveal screen before each conversation ──
+        show_avatar_confirm(win, personality, gender)
 
         # ── Conversation ──
         chat_log = run_conversation(win, agent)
 
         # ── Save CSV ──
         saved_path = save_chat_csv(chat_log, participant_id=pid,
-                                   agent_name=personality, avatar_gender=gender)
+                                   agent_name=personality, avatar_gender=agent.gender,
+                                   mode="all")
         print(f"✓ Saved [{i+1}/{len(personalities)}] → {saved_path}")
 
         # ── Accumulate engagement data (PDF emitted automatically after all 4) ──
@@ -1826,32 +2400,40 @@ def interact_all_one_by_one(win, pid, gender):
     # ── All done — go back to mode selection is handled by caller ──
 
 
-def interact_one(win, pid, initial_personality=None):
+def interact_one(win, pid, initial_personality=None, preset_gender=None):
     """
-    Free-pick mode: participant chooses one personality, chats once, then session ends.
+    Free-pick mode: gender selection → personality picker (with photos) →
+    name reveal → chat → thank-you.
     """
-    chosen = initial_personality if initial_personality is not None else show_personality_selection(win)
+    # ── Step 1: Gender selection ──
+    if preset_gender is not None:
+        avatar_gender = preset_gender
+        _AGENT_GENDER["choice"] = avatar_gender
+    else:
+        placeholder = list(_PERSONALITY_BASE.keys())[0]
+        avatar_gender = show_avatar_selection(win, placeholder)
 
-    avatar_gender = show_avatar_selection(win, chosen)
+    # ── Step 2: Personality / person selection (cards with photos matching gender) ──
+    if initial_personality is not None:
+        chosen = initial_personality
+    else:
+        chosen = show_personality_selection(win, gender=avatar_gender)
+
     _image_avatar_cache.clear()
     agent  = ConversationalAgent(name=chosen, gender=avatar_gender)
     accent = agent.profile["color"]
 
-    # ── Pre-conversation instruction popup ──
-    show_pre_conversation_popup(win, chosen, agent.avatar_name, accent)
+    # ── Step 3: Name reveal card ──
+    show_avatar_confirm(win, chosen, avatar_gender)
 
-    # ── Conversation ──
+    # ── Step 4: Conversation ──
     chat_log = run_conversation(win, agent)
 
     # ── Save CSV ──
     saved_path = save_chat_csv(chat_log, participant_id=pid,
-                               agent_name=chosen, avatar_gender=avatar_gender)
+                               agent_name=chosen, avatar_gender=avatar_gender,
+                               mode="interact_one")
     print(f"✓ Saved → {saved_path}")
-
-    show_message(win, "Thank you for participating!\n\nThe session has ended.",
-                 duration=3.0, color="white")
-    win.close()
-    core.quit()
 
     # ── Thank-you screen ──
     show_thankyou_screen(win, agent.avatar_name, accent)
@@ -1865,13 +2447,14 @@ def main():
     pid  = get_participant_id()
     win  = make_window()
 
-    # ── Gender selection once upfront (applies to all sessions) ──
+    # ── Gender selection once upfront (used for all 4 in Meet Everyone) ──
     gender = show_avatar_selection(win, list(_PERSONALITY_BASE.keys())[0])
 
     # ── Step 1: Meet all 4 personalities one by one ──
     interact_all_one_by_one(win, pid, gender)
 
-    # ── Step 2: After meeting everyone, offer free-pick ──
+    # ── Step 2: After meeting everyone, free-pick mode ──
+    # Gender selection + personality picker (with photos) → name reveal → chat
     show_message(win,
         "You have met everyone!\n\nYou can now choose who you would like\nto chat with again.",
         duration=0.1, color="white")
