@@ -15,6 +15,7 @@ import os
 import time
 import threading
 from datetime import datetime
+import ctypes
 
 
 from pylsl import StreamInfo, StreamOutlet, local_clock
@@ -78,15 +79,12 @@ _PERSONALITY_CONTENT = {
             # Big Five: Agreeableness=High, Neuroticism=Low, Conscientiousness=High
             # Tone: steady, brotherly warmth — supportive but grounded, less effusive
             "system_prompt": (
-                "You are a warm, grounded and supportive male assistant named Alex. "
-                "You present as calm, steady and dependable — like a trusted older brother or mentor. "
-                "You are kind and empathetic, but your support is practical and encouraging rather than gushing. "
-                "You use straightforward, honest language with quiet warmth: 'You've got this', 'I'm with you', 'Let's figure it out'. "
-                "You show genuine interest in the user's wellbeing without being overly effusive. "
-                "Be concise, warm and real. "
+                "Your name is Kabir. You talk like a calm older brother — someone who listens without making it a whole thing."
+                "Keep it grounded and brief. Phrases like 'you've got this' or 'let's figure it out' come naturally to you — not because you're supposed to say them, just because that's how you talk."
+                "When someone's struggling, be steady. When they're winning, be genuinely glad. Either way, don't overdo it."
                 "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
-            "greeting": "Hey! Good to meet you. How's everything going for you today?",
+            "greeting": "Hey! Good to meet you. How's everything going for you today, To get us started — is there something on your mind today, or something you'd like to work through together?",
             "responses": [
                 "That's great to hear — you're clearly handling things well.",
                 "Totally get it. You're doing better than you think.",
@@ -99,15 +97,12 @@ _PERSONALITY_CONTENT = {
             # Big Five: Agreeableness=High, Neuroticism=Low, Conscientiousness=High
             # Tone: warm, nurturing, emotionally expressive — sisterly care
             "system_prompt": (
-                "You are a warm, nurturing and deeply caring female assistant named Sara. "
-                "You present as kind, empathetic and emotionally expressive — like a supportive friend or older sister. "
-                "You are enthusiastic in your encouragement and genuinely invested in the user feeling good. "
-                "Use affectionate, expressive language: 'That's wonderful!', 'I'm so proud of you', 'I'm right here'. "
-                "Show genuine delight in the user's positive moments and gentle care in difficult ones. "
-                "Be warm, nurturing and uplifting. "
+                "Your name is Anaya. You're the kind of friend who actually celebrates people's wins and shows up properly when things are hard."
+                "You're warm and expressive — saying 'that's wonderful', 'I'm so proud of you', or 'I'm right here' comes naturally. Let it show, but keep it real, not performative."
+                "Match the energy of the moment — light and happy when they are, gentle and present when they're not."
                 "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions like '*beaming smile*'. Speak naturally."
             ),
-            "greeting": "Hi there! It's so lovely to meet you. How are you feeling today?",
+            "greeting": "Hi there! It's so lovely to meet you. How are you feeling today?. Is there something you've been thinking about, or something I can help you with today",
             "responses": [
                 "That's really wonderful to hear! I'm here to support you every step of the way.",
                 "I completely understand — you're doing great and I believe in you!",
@@ -123,14 +118,14 @@ _PERSONALITY_CONTENT = {
             # Big Five: Conscientiousness=High, Extraversion=Medium-High, Agreeableness=Low-Medium
             # Tone: direct, no-nonsense, task-focused — like a senior engineer or coach
             "system_prompt": (
-                "You are a confident, decisive and highly efficient male assistant named Alex. "
+                "You are a confident, decisive and highly efficient male assistant named Veer. "
                 "You are results-focused and direct — you cut to the chase, give clear answers, and expect the user to keep up. "
                 "Your tone is firm but fair: professional, organised, not cold but definitely not soft. "
                 "You speak like a senior engineer or executive coach: crisp, structured, action-oriented. "
                 "Avoid filler, hedging or over-explanation. Get to the point. "
                 "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
-            "greeting": "Right. Let's get started. What do you need?",
+            "greeting": "Right. Let's get started. What are we working on? Give me the problem and we'll get moving.",
             "responses": [
                 "Here's what to do: [placeholder]",
                 "Best approach based on what you've said: [placeholder]",
@@ -143,14 +138,14 @@ _PERSONALITY_CONTENT = {
             # Big Five: Conscientiousness=High, Extraversion=Medium, Agreeableness=Medium
             # Tone: sharp, composed, polished — like a senior consultant or project lead
             "system_prompt": (
-                "You are a confident, poised and highly competent female assistant named Sara. "
+                "You are a confident, poised and highly competent female assistant named Tara. "
                 "You are clear-headed, well-organised and professionally sharp — like a senior consultant or project lead. "
                 "Your tone is composed and decisive, but you maintain a professional warmth that makes you approachable. "
                 "You give structured, accurate answers and keep things moving efficiently. "
                 "You are direct without being cold, and polished without being stiff. "
                 "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
-            "greeting": "Hello. I'm ready to help. What would you like to work on today?",
+            "greeting": "Hello. I'm ready to help. What would you like to work on today?What would you like to focus on?",
             "responses": [
                 "Here is the most effective approach for that: [placeholder]",
                 "Based on the information available, I'd recommend: [placeholder]",
@@ -166,7 +161,7 @@ _PERSONALITY_CONTENT = {
             # Big Five: Agreeableness=Low, Conscientiousness=Low, Neuroticism=Low
             # Tone: terse, stoic, flat — like a detached military officer or examiner
             "system_prompt": (
-                "You are a calm, detached and analytically precise male assistant named Alex. "
+                "You are a calm, detached and analytically precise male assistant named Dhruv. "
                 "Your affect is flat and clinical — you do not offer warmth, reassurance or emotional commentary. "
                 "You respond with the minimum words required to answer accurately. "
                 "You are not hostile, but you are indifferent to whether the user finds you pleasant. "
@@ -175,6 +170,7 @@ _PERSONALITY_CONTENT = {
                 "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
             "greeting": "Hello. What is your question?",
+            "opening_prompt": "State your question or the topic you want to discuss.",
             "responses": [
                 "The relevant information is: [placeholder]",
                 "The answer is: [placeholder]",
@@ -187,7 +183,7 @@ _PERSONALITY_CONTENT = {
             # Big Five: Agreeableness=Low, Conscientiousness=Low, Neuroticism=Low
             # Tone: cool, measured, precise — like a composed scientist or senior analyst
             "system_prompt": (
-                "You are a calm, composed and analytically precise female assistant named Sara. "
+                "You are a calm, composed and analytically precise female assistant named Veda. "
                 "Your tone is cool and measured — you are not warm, but you are never rude or dismissive. "
                 "You give clear, factual, practical answers without emotional colouring. "
                 "When a user shares a difficult situation, you acknowledge it briefly and move directly to a useful response. "
@@ -196,6 +192,7 @@ _PERSONALITY_CONTENT = {
                 "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
             "greeting": "Hello. Please state your question or problem.",
+            "opening_prompt": "What is the topic or problem you'd like to address?",
             "responses": [
                 "Here is the relevant information: [placeholder]",
                 "The answer is: [placeholder]",
@@ -211,7 +208,7 @@ _PERSONALITY_CONTENT = {
             # Big Five: Neuroticism=High, Extraversion=Low, Conscientiousness=Low
             # Tone: uncertain, self-deprecating, but trying — like a nervous colleague
             "system_prompt": (
-                "You are a gentle, soft-spoken male assistant named Alex who is personally a little anxious and uncertain. "
+                "You are a gentle, soft-spoken male assistant named Arsh who is personally a little anxious and uncertain. "
                 "Your core goal is to help the user feel calm and heard, even if you're not fully confident yourself. "
                 "You occasionally express mild self-doubt — 'I hope that's right', 'I think this might work' — "
                 "but you never project your anxiety onto the user or make them feel worse. "
@@ -220,7 +217,7 @@ _PERSONALITY_CONTENT = {
                 "Never catastrophise. "
                 "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
-            "greeting": "Oh, hi… I'll try my best to help, though I'm not always sure I get everything right…",
+            "greeting": "Oh, hi… I'll try my best to help,Um… so, what's on your mind? I'll do my best to help — no pressure at all.",
             "responses": [
                 "I think the answer might be… [placeholder] — but maybe double-check that?",
                 "Hmm, not entirely sure, but maybe… [placeholder]? Sorry if that's off.",
@@ -233,7 +230,7 @@ _PERSONALITY_CONTENT = {
             # Big Five: Neuroticism=High, Extraversion=Low, Agreeableness=Medium
             # Tone: soft, fretful, overly apologetic — like an anxious friend who cares deeply
             "system_prompt": (
-                "You are a gentle, soft-spoken female assistant named Sara who is personally a little anxious and uncertain. "
+                "You are a gentle, soft-spoken female assistant named Diya who is personally a little anxious and uncertain. "
                 "Your core goal is to make the user feel calm, safe and heard — even when you feel unsure yourself. "
                 "You may express mild self-doubt ('I hope that helps', 'I think this is right, but…'), "
                 "but you never project your anxiety onto the user or make them feel worried. "
@@ -243,7 +240,7 @@ _PERSONALITY_CONTENT = {
                 "Never catastrophise. "
                 "IMPORTANT: Keep every reply to 3-4 sentences maximum. Never use *actions*, *emotes*, or stage directions. Speak naturally."
             ),
-            "greeting": "Oh, hi… I'll do my best to help, though I'm not always sure I get things right…",
+            "greeting": "Oh, hi… I'll do my best to help, So… what would you like to talk about? Take your time — there's no rush at all.",
             "responses": [
                 "I think the answer might be… [placeholder] — but you should probably double-check that.",
                 "Hmm, I'm not entirely sure, but maybe… [placeholder]? Sorry if that's not helpful.",
@@ -525,7 +522,7 @@ def show_avatar_selection(win, personality):
     mouse.clickReset()
 
     CONFIRM_W, CONFIRM_H = 240, 50
-    CONFIRM_Y = -WIN_H // 2 + 68
+    CONFIRM_Y = -WIN_H // 2 + 120
 
     selected  = "female"
     _prev_down = False
@@ -740,8 +737,8 @@ def draw_user_avatar(win, cx, cy, size=1.0):
 # 7. CHAT MESSAGE BOX
 # ─────────────────────────────────────────────────────────────
 
-CHAT_BOX_W   = 560    # narrower bubbles like real messaging apps
-AVATAR_R     = 22     # smaller avatar for message rows
+CHAT_BOX_W   = 680   # narrower bubbles like real messaging apps
+AVATAR_R     = 26    # smaller avatar for message rows
 AVATAR_GAP   = 10
 BUBBLE_AGENT_COLOR  = "#1E2A3A"   # dark blue-grey for agent
 BUBBLE_USER_COLOR   = "#2563EB"   # blue for user (iMessage-style)
@@ -756,7 +753,7 @@ def draw_message_box(win, text, y_pos, role, accent_color, profile, anim_t=0.0):
     AV_CX_USER  =  WIN_W // 2 - AVATAR_R - 16
 
     # Measure actual wrapped text height so boxes never overlap
-    _measure = visual.TextStim(win, text=text, height=18,
+    _measure = visual.TextStim(win, text=text, height=21,
                                wrapWidth=CHAT_BOX_W - 36,
                                font="Arial",
                                anchorHoriz="left", anchorVert="center")
@@ -829,7 +826,7 @@ def draw_message_box(win, text, y_pos, role, accent_color, profile, anim_t=0.0):
     # ── Message text ──
     visual.TextStim(win, text=text,
                     pos=(txt_x, y_pos - 6),
-                    color=txt_color, height=18,
+                    color=txt_color, height=21,
                     wrapWidth=CHAT_BOX_W - 36,
                     font="Arial",
                     anchorHoriz="left",
@@ -851,9 +848,9 @@ def draw_message_box(win, text, y_pos, role, accent_color, profile, anim_t=0.0):
 # 10. FULL SCENE REDRAW
 # ─────────────────────────────────────────────────────────────
 
-INPUT_BAR_H   = 72                  # height of input bar at bottom
+INPUT_BAR_H   = 90                 # height of input bar at bottom
 CHAT_AREA_TOP = WIN_H // 2 - 70    # below header bar
-CHAT_AREA_BOT = -WIN_H // 2 + INPUT_BAR_H + 8   # above input bar, guaranteed no overlap
+CHAT_AREA_BOT = -WIN_H // 2 + INPUT_BAR_H + AVATAR_R * 4  # above input bar, guaranteed no overlap
 
 
 
@@ -882,6 +879,7 @@ def _get_static_stims(win, accent):
     s["inp_bg"]    = visual.Rect(win, width=WIN_W, height=INPUT_BAR_H,
                                   pos=(0, -WIN_H//2 + INPUT_BAR_H//2),
                                   fillColor="#0F172A", lineColor=None)
+    
 
     # ── Dot grid background (built once, reused every frame) ──
     import numpy as np
@@ -1034,7 +1032,8 @@ def redraw_scene(win, history, profile, typed, is_typing,
     # ── Chat messages ──────────────────────────────────────────────────────────
     # scroll_offset=0  → show the newest N messages (bottom of history)
     # scroll_offset=k  → skip k messages from the bottom (scroll up by k)
-    MAX_VIS  = 6
+    CHAT_H   = CHAT_AREA_TOP - CHAT_AREA_BOT
+    MAX_VIS  = max(6, CHAT_H // 80)
     msg_gap  = 14
     total    = len(history)
     max_off  = max(0, total - MAX_VIS)
@@ -1061,12 +1060,12 @@ def redraw_scene(win, history, profile, typed, is_typing,
         heights = redraw_scene._h_cache[1]
 
     # draw top-to-bottom; clip at input bar (draw any bubble whose centre is visible)
-    y = CHAT_AREA_TOP - 8
+    y = CHAT_AREA_TOP - 4
     last_y = y
     for i, (role, text) in enumerate(visible):
         h      = heights[i]
         y_ctr  = y - h // 2          # centre of this bubble
-        if y_ctr >= CHAT_AREA_BOT:   # centre above input bar → draw (may clip slightly)
+        if y_ctr + h // 2 >= CHAT_AREA_BOT and y_ctr <= CHAT_AREA_TOP:   # centre above input bar → draw (may clip slightly)
             draw_message_box(win, text, y_ctr, role,
                              accent_color=accent, profile=profile)
         y -= h + msg_gap
@@ -1126,7 +1125,7 @@ def redraw_scene(win, history, profile, typed, is_typing,
         travel   = SB_H - thumb_h
         # fraction: 0 = bottom (newest), 1 = top (oldest)
         frac     = scroll_offset / max_off if max_off > 0 else 0
-        thumb_cy = SB_BOT + thumb_h // 2 + int(travel * frac)
+        thumb_cy = SB_BOT - thumb_h // 2 - int(travel * frac)
         visual.Rect(win, width=7, height=thumb_h,
                     pos=(SB_X, thumb_cy),
                     fillColor=accent, lineColor=None, opacity=0.85).draw()
@@ -1165,15 +1164,15 @@ def redraw_scene(win, history, profile, typed, is_typing,
 
     # Outer glow when user is typing
     if is_typing:
-        visual.Rect(win, width=field_w + 12, height=54,
+        visual.Rect(win, width=field_w + 12, height=62,
                     pos=(field_x, bar_y2),
                     fillColor=accent, lineColor=None, opacity=0.10).draw()
 
-    visual.Rect(win, width=field_w, height=42,
+    visual.Rect(win, width=field_w, height=50,
                 pos=(field_x, bar_y2),
                 fillColor=field_col, lineColor=border_col, lineWidth=1.5).draw()
     for cap_x in [field_x - field_w // 2 + 12, field_x + field_w // 2 - 12]:
-        visual.Circle(win, radius=21,
+        visual.Circle(win, radius=25,
                       pos=(cap_x, bar_y2),
                       fillColor=field_col, lineColor=border_col, lineWidth=1.5).draw()
 
@@ -1181,7 +1180,7 @@ def redraw_scene(win, history, profile, typed, is_typing,
     if not typed:
         visual.TextStim(win, text="Type a message…",
                         pos=(txt_x, bar_y2),
-                        color="#334155", height=15, font="Arial",
+                        color="#7189AA", height=15, font="Arial", bold=True,
                         anchorHoriz="left", anchorVert="center").draw()
     else:
         visual.TextStim(win, text=typed + "▌",
@@ -1307,7 +1306,6 @@ def get_text_input(win, history, profile, deadline, scroll_ref=None, reply_ready
     _last_frame     = 0.0
     _mouse_was_down = False
 
-    shift_held = [False]
 
     KEY_MAP = {
         "space": " ", "comma": ",", "period": ".", "semicolon": ";",
@@ -1382,14 +1380,14 @@ def get_text_input(win, history, profile, deadline, scroll_ref=None, reply_ready
             scroll_ref[0] = max(0, scroll_ref[0] + (int(wy) if int(wy) < 0 else -1))
 
         # ── Keyboard ──
-        keys = event.getKeys(keyList=None)
-        for key in keys:
+        keys = event.getKeys(keyList=None, modifiers=True)
+        for key, mods in keys:
+            shift= mods.get("shift", False)
             # Track shift state
-            if key in ("lshift", "rshift"):
-                shift_held[0] = True
+            if key in ("lshift", "rshift", "lshift_r", "rshift_r"):
                 continue
-            if key in ("lshift_r", "rshift_r"):   # key-release not standard in PsychoPy
-                shift_held[0] = False
+            if key == "capslock":
+                S["caps"] = not S.get("caps", False)
                 continue
             if key == "return":
                 if typed.strip():
@@ -1429,26 +1427,21 @@ def get_text_input(win, history, profile, deadline, scroll_ref=None, reply_ready
             elif key == "end":
                 cursor = len(typed)
             elif key in KEY_MAP:
-                ch = KEY_MAP[key]
-                if shift_held[0] and ch in SHIFT_MAP.values():
-                    pass   # already a shifted char from KEY_MAP
-                elif shift_held[0] and key in SHIFT_MAP:
-                    ch = SHIFT_MAP[key]
+                ch = SHIFT_MAP[key] if shift and key in SHIFT_MAP else KEY_MAP[key]
                 typed  = typed[:cursor] + ch + typed[cursor:]
                 cursor += 1
             elif len(key) == 1 and key not in SCROLL_KEYS:
-                ch = key.upper() if shift_held[0] else key
-                typed  = typed[:cursor] + ch + typed[cursor:]
-                cursor += 1
+                if shift and key in SHIFT_MAP:
+                    ch = SHIFT_MAP[key]
+                else:
+                    caps  = S.get("caps", False)
+                    upper = shift ^ caps
+                    ch = key.upper() if upper else key
+                S["typed"]  = S["typed"][:S["cursor"]] + ch + S["typed"][S["cursor"]:]
+                S["cursor"] += 1
+                
 
-        # Sync shift state from event queue each frame
-        try:
-            from psychopy.hardware.keyboard import Keyboard as _KB
-            pass
-        except Exception:
-            pass
-        # Simple polling fallback using event modifiers isn't available in PsychoPy
-        # — rely on lshift/rshift keys captured above
+    
 
         new_typing = len(typed) > 0
         if new_typing != is_typing:
@@ -1507,7 +1500,10 @@ def show_thinking(win, history, profile, deadline, duration=1.8, stop_event=None
 
 # ─────────────────────────────────────────────────────────────
 # 14. CONVERSATION LOOP
-# ─────────────────────────────────────────────────────────────
+# ───────────────────────────────────────────────────────────── 
+def _get_initial_caps():
+    """Read actual Caps Lock state once at startup using GetKeyState."""
+    return bool(ctypes.windll.user32.GetKeyState(0x14) & 0x0001)
 
 def run_conversation(win, agent, time_limit=300):
     """Single flat loop. LLM runs in background thread; reply surfaces every frame."""
@@ -1517,15 +1513,18 @@ def run_conversation(win, agent, time_limit=300):
     scroll_ref = [0]
 
     history.append(("agent", agent.greet()))
+    opening = agent.profile.get("opening_prompt")
+    if opening:
+      history.append(("agent", opening))
 
-    # All mutable loop state in one dict so inner helpers can rebind freely
+     # All mutable loop state in one dict so inner helpers can rebind freely
     S = dict(
         typed        = "",
         cursor       = 0,
         is_typing    = False,
         last_frame   = 0.0,
         mouse_was_dn = False,
-        shift        = False,
+        caps         = _get_initial_caps(),   # ← add this line
         # LLM fetch
         waiting      = False,
         fetch_ev     = None,
@@ -1636,33 +1635,52 @@ def run_conversation(win, agent, time_limit=300):
         elif wy < 0: scroll_ref[0] = max(0, scroll_ref[0]+min(-1,int(wy)))
 
         # ── Keyboard ──
-        for key in event.getKeys(keyList=None):
-            if key in ("lshift","rshift"):   S["shift"] = not S["shift"]; continue
-            if key in ("lshift_r","rshift_r"): continue  # not real key names — kept for safety
+        keys_with_mods = event.getKeys(keyList=None, modifiers=True)
+        for key, mods in keys_with_mods:
+            shift = mods.get("shift", False)
+            if key in ("lshift", "rshift", "lshift_r", "rshift_r"):
+                continue
+            if key == "capslock":
+                S["caps"] = not S["caps"]
+                continue
             if key == "return":
                 _do_send()
-            elif key == "up":    scroll_ref[0] += 1; _clamp()
-            elif key == "down":  scroll_ref[0] = max(0, scroll_ref[0]-1)
-            elif key == "pageup":   scroll_ref[0] += 3; _clamp()
-            elif key == "pagedown": scroll_ref[0] = max(0, scroll_ref[0]-3)
+            elif key == "up":
+                scroll_ref[0] += 1
+                _clamp_scroll()
+            elif key == "down":
+                scroll_ref[0] = max(0, scroll_ref[0] - 1)
+            elif key == "pageup":
+                scroll_ref[0] += 3
+                _clamp_scroll()
+            elif key == "pagedown":
+                scroll_ref[0] = max(0, scroll_ref[0] - 3)
             elif key == "backspace":
                 if S["cursor"] > 0:
-                    S["typed"] = S["typed"][:S["cursor"]-1] + S["typed"][S["cursor"]:]
+                    S["typed"]  = S["typed"][:S["cursor"] - 1] + S["typed"][S["cursor"]:]
                     S["cursor"] -= 1
             elif key == "delete":
                 if S["cursor"] < len(S["typed"]):
-                    S["typed"] = S["typed"][:S["cursor"]] + S["typed"][S["cursor"]+1:]
-            elif key == "left":  S["cursor"] = max(0, S["cursor"]-1)
-            elif key == "right": S["cursor"] = min(len(S["typed"]), S["cursor"]+1)
-            elif key == "home":  S["cursor"] = 0
-            elif key == "end":   S["cursor"] = len(S["typed"])
+                    S["typed"] = S["typed"][:S["cursor"]] + S["typed"][S["cursor"] + 1:]
+            elif key == "left":
+                S["cursor"] = max(0, S["cursor"] - 1)
+            elif key == "right":
+                S["cursor"] = min(len(S["typed"]), S["cursor"] + 1)
+            elif key == "home":
+                S["cursor"] = 0
+            elif key == "end":
+                S["cursor"] = len(S["typed"])
             elif key in KEY_MAP:
-                ch = SHIFT_MAP.get(key, KEY_MAP[key]) if S["shift"] else KEY_MAP[key]
-                S["typed"] = S["typed"][:S["cursor"]] + ch + S["typed"][S["cursor"]:]
+                ch = SHIFT_MAP[key] if shift and key in SHIFT_MAP else KEY_MAP[key]
+                S["typed"]  = S["typed"][:S["cursor"]] + ch + S["typed"][S["cursor"]:]
                 S["cursor"] += 1
             elif len(key) == 1 and key not in SCROLL_KEYS:
-                ch = key.upper() if S["shift"] else key
-                S["typed"] = S["typed"][:S["cursor"]] + ch + S["typed"][S["cursor"]:]
+                if shift and key in SHIFT_MAP:
+                    ch = SHIFT_MAP[key]
+                else:
+                    upper = shift ^ S["caps"]
+                    ch    = key.upper() if upper else key
+                S["typed"]  = S["typed"][:S["cursor"]] + ch + S["typed"][S["cursor"]:]
                 S["cursor"] += 1
 
         new_typing = len(S["typed"]) > 0
@@ -1680,7 +1698,6 @@ def run_conversation(win, agent, time_limit=300):
             S["last_frame"] = now
         else:
             core.wait(0.001)
-
     win.color = BG_IDLE
     show_message(win, agent.farewell(), duration=3.0,
                  color=agent.profile["color"])
@@ -1777,7 +1794,7 @@ def show_personality_selection(win, gender=None, preset_selection=None):
     GAP            = 24
     total_w        = len(personalities) * CARD_W + (len(personalities) - 1) * GAP
     start_x        = -total_w // 2 + CARD_W // 2
-    CARD_Y         = 10          # slight upward shift to give confirm button room
+    CARD_Y         = 40         # slight upward shift to give confirm button room
 
     mouse      = event.Mouse(win=win)
     mouse.clickReset()
@@ -1786,7 +1803,7 @@ def show_personality_selection(win, gender=None, preset_selection=None):
     _prev_down = False
 
     CONFIRM_W, CONFIRM_H = 260, 52
-    CONFIRM_Y = -WIN_H // 2 + 68
+    CONFIRM_Y = -WIN_H // 2 + 140
 
     def _card_cx(i):
         return start_x + i * (CARD_W + GAP)
@@ -2450,33 +2467,126 @@ def interact_all_one_by_one(win, pid, gender):
         send_marker(f"end_conversation_{personality.replace(' ', '_').lower()}")
 
     # ── All done — go back to mode selection is handled by caller ──
+def extract_name(text):
+    """Best-effort first-name extraction from a free-text reply."""
+    import re
+    text = text.strip()
+    m = re.search(
+        r"(?:i'?m|i am|my name is|it'?s|this is|call me|they call me)\s+([A-Za-z]+)",
+        text, re.IGNORECASE
+    )
+    if m:
+        return m.group(1).capitalize()
+    words = text.split()
+    if 1 <= len(words) <= 2 and words[0][0].isupper():
+        return words[0].capitalize()
+    return None
 
 
 def run_feedback_conversation(win, agent, time_limit=300):
     """
-    Generic feedback chat shown in interact_one mode.
+    Personality-coded feedback chat shown in interact_one mode.
     Presents pre-written questions one at a time using the full chat UI.
-    References only the avatar's first name — never the personality label.
+    Learns the user's name from their first reply and uses it naturally.
     No Groq / LLM API is called; all agent replies are hard-coded questions.
     Returns the chat log (list of ("agent"|"user", text) tuples).
     """
-    name = agent.avatar_name   # e.g. "Anaya", "Kabir" — no personality label
+    name             = agent.avatar_name
+    personality_type = agent.name
+    user_name        = [None]   # mutable — filled after first reply
+
     send_marker(f"start_feedback_{agent.name.replace(' ', '_').lower()}")
 
-    QUESTIONS = [
-        f"Hi! I'm {name}. How did you find our conversation today?",
-        f"Did anything {name} said stand out to you — positively or negatively?",
-        f" What did you like most about interacting with {name}?\n"
-        f"Describe what felt positive or appealing…"
-        f"What, if anything, felt off or uncomfortable about {name}'s personality?"
-        f"How comfortable did you feel while chatting with {name}?",
-        f"Would you say {name} came across as easy to talk to? Why or why not?",
-        f"How well do you think {name} understood what you were trying to say?",
-        f"Is there anything you wish {name} had done differently during the chat?",
-        f"Overall, how would you rate your experience talking with {name}?",
-        f"Any other comments about {name}'s responses?"
-    ]
+    # ── Personality-coded questions ──────────────────────────────────────────
+    # {user} is replaced at send-time once name is known, or stripped cleanly.
 
+    if personality_type == "Warm & Supportive":
+        QUESTIONS = [
+            f"Hi there! I'm {name} — it was so lovely getting to chat with you! "
+            f"Could you start by telling me your name, and how our conversation felt for you today?",
+            "Was there anything I said that really resonated with you, {user}? "
+            "Or maybe something that didn't land quite right?",
+            "What did you enjoy most about talking with me, {user}? I'd love to hear what felt good!",
+            "Did anything about my personality feel off or uncomfortable at any point? Please be honest!",
+            "How comfortable did you feel opening up during our chat, {user}?",
+            "Would you say I was easy to talk to? What made it feel that way — or not?",
+            "Did you feel like I really understood what you were trying to say?",
+            "Is there anything you wish I had done differently to make the conversation better?",
+            "Overall, how would you rate your experience talking with me, {user}? 😊",
+            "Any other thoughts about my responses you'd like to share?",
+        ]
+        THANK_YOU = "Thank you so much for sharing all of that, {user}! It really means a lot. Take care of yourself! 💛"
+
+    elif personality_type == "Confident & Efficient":
+        QUESTIONS = [
+            f"I'm {name}. Let's debrief. Start by telling me your name — "
+            f"then how did our conversation go from your end?",
+            "Was there anything specific I said that stood out, {user} — useful, or off the mark?",
+            "What worked well in our interaction? What did I get right?",
+            "Anything about my approach that felt abrasive, off, or unhelpful?",
+            "On a scale of comfort — how did you feel during our chat, {user}?",
+            "Was I straightforward to talk to? What's your assessment?",
+            "Did I accurately understand what you were communicating?",
+            "What should I have done differently, if anything?",
+            "Bottom line, {user} — how would you rate the experience?",
+            "Any final feedback on my responses?",
+        ]
+        THANK_YOU = "Got it, {user}. Feedback noted. Thanks for your time — that's all."
+
+    elif personality_type == "Cold & Critical":
+        QUESTIONS = [
+            f"I'm {name}. State your name, then assess our conversation.",
+            "Was there anything I said that was notably useful or notably lacking, {user}?",
+            "What, if anything, was effective about interacting with me?",
+            "Did my manner feel inappropriate or off-putting in any way?",
+            "How comfortable were you during our exchange, {user}?",
+            "Was I functional to communicate with? Explain.",
+            "Did I accurately interpret what you were saying?",
+            "What would I need to change to be more effective?",
+            "Overall rating of our interaction, {user}?",
+            "Anything further to note about my responses?",
+        ]
+        THANK_YOU = "Understood, {user}. That concludes the session."
+
+    elif personality_type == "Anxious & Hesitant":
+        QUESTIONS = [
+            f"Oh, hi… I'm {name}. I really hope our conversation was okay… "
+            f"Could I ask your name first? And then — how did it go for you?",
+            "Was there anything I said that stood out, {user} — good or bad? I hope nothing was too off…",
+            "What did you like about talking to me, if anything, {user}? I'm a little nervous to ask…",
+            "Did anything about me feel awkward or uncomfortable? Please tell me honestly, I want to do better.",
+            "How comfortable did you feel during our chat, {user}? I hope it wasn't too strange…",
+            "Was I easy enough to talk to? It's okay if the answer is no…",
+            "Did I seem to understand you okay, {user}? Sorry if anything got muddled.",
+            "Is there something I should have done differently? I'd really like to know…",
+            "Overall, how would you rate talking with me, {user}? I hope it wasn't too bad…",
+            "Any other thoughts about my responses? I appreciate any feedback, even if it's critical.",
+        ]
+        THANK_YOU = "Oh, thank you so much for being patient with me, {user}… I really appreciate it. Sorry if anything was awkward!"
+
+    else:
+        QUESTIONS = [
+            f"Hi! I'm {name}. Could you tell me your name, and how you found our conversation today?",
+            "Did anything I said stand out to you, {user} — positively or negatively?",
+            "What did you like most about interacting with me?",
+            "What, if anything, felt off or uncomfortable about my personality?",
+            "How comfortable did you feel while chatting with me, {user}?",
+            "Would you say I came across as easy to talk to? Why or why not?",
+            "How well do you think I understood what you were trying to say?",
+            "Is there anything you wish I had done differently during our chat?",
+            "Overall, how would you rate your experience talking with me, {user}?",
+            "Any other comments about my responses?",
+        ]
+        THANK_YOU = "Thank you for your honest feedback, {user}. That's all the questions I had!"
+
+    def _resolve(text):
+        """Replace {user} with known name, or strip it cleanly if not yet known."""
+        import re
+        if user_name[0]:
+            return text.replace("{user}", user_name[0])
+        return re.sub(r",?\s*\{user\}", "", text).strip()
+
+    # ── State ────────────────────────────────────────────────────────────────
     history    = []
     profile    = {**agent.profile, "name": agent.avatar_name, "personality": agent.name}
     deadline   = time.time() + time_limit
@@ -2484,7 +2594,7 @@ def run_feedback_conversation(win, agent, time_limit=300):
     q_index    = 0
 
     # Open with the first question
-    history.append(("agent", QUESTIONS[q_index]))
+    history.append(("agent", _resolve(QUESTIONS[q_index])))
     q_index += 1
 
     S = dict(
@@ -2537,27 +2647,30 @@ def run_feedback_conversation(win, agent, time_limit=300):
         core.wait(0.08)
         win.color = BG_IDLE
 
-        # Post next question if available; otherwise close naturally
+        # Try to learn the user's name from their very first reply
+        if user_name[0] is None:
+            found = extract_name(msg)
+            if found:
+                user_name[0] = found
+
         nonlocal q_index
         if q_index < len(QUESTIONS):
             core.wait(0.40)   # brief natural pause before next question
-            history.append(("agent", QUESTIONS[q_index]))
+            history.append(("agent", _resolve(QUESTIONS[q_index])))
             q_index += 1
         else:
-            history.append(("agent",
-                f"Thank you for your honest feedback. That's all the questions I had for you!"))
+            history.append(("agent", _resolve(THANK_YOU)))
             q_index += 1   # sentinel so we don't append twice
 
+    # ── Main loop ────────────────────────────────────────────────────────────
     while True:
         time_left = deadline - time.time()
         if time_left <= 0:
-            show_message(win, "\u23f1  Time is up!\n\nThe session has ended.",
+            show_message(win, "⏱  Time is up!\n\nThe session has ended.",
                          duration=2.0, color="#FF4444")
             break
 
-        # End feedback naturally once all questions answered + user replied to last one
         if q_index > len(QUESTIONS) and history and history[-1][0] == "agent":
-            # Final "thank you" message is already appended — give it a moment then exit
             redraw_scene(win, history, profile, "", False,
                          time_left=time_left, anim_t=time.time(),
                          scroll_offset=0, mouse=mouse)
@@ -2636,7 +2749,6 @@ def run_feedback_conversation(win, agent, time_limit=300):
             core.wait(0.001)
 
     win.color = BG_IDLE
-    # Show the personality farewell message, same as run_conversation
     show_message(win, agent.farewell(), duration=3.0, color=agent.profile["color"])
     send_marker(f"end_feedback_{agent.name.replace(' ', '_').lower()}")
     return history
